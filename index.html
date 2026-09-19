@@ -29,26 +29,50 @@ body{font-family:'Bebas Neue',sans-serif;}
   width:100%;
   height:100vh;height:100dvh;
   overflow:hidden;
-  display:flex;align-items:flex-end;justify-content:center;
+  display:flex;align-items:center;justify-content:center;
 }
-.banner-vid{
-  position:absolute;top:0;left:0;
-  width:100%;height:100%;
-  object-fit:cover;object-position:center top;
-  display:block;z-index:0;
+/* ── Ana sayfa (hub) — 2026-09'da çoklu oyuna geçilirken ayrıldı, sonra
+   #gameSelect ile TEK ekranda birleştirildi. Bu ekran KALICI bir platform
+   girişi: 50. Yıl kampanyasına özel değil, oyunlar yıllarca birçok etkinlikte
+   kullanılacak — bu yüzden metinde "50. Yıl" / kampanyaya özel ibare YOK.
+   Eskiden Genel-Halftime-v3.mp4 videosuydu; video içine RHYTHM CHALLENGE başlığı
+   GÖMÜLÜYDÜ (DOM metni değil) — o video artık oyunun KENDİ tanıtım ekranı
+   (#gamePromo, games/rhythm-challenge/Genel-Halftime-v3.mp4).
+   Tek grup olarak DÜŞEY ORTALANIR (logo+başlık+alt yazı sıkı bir marka bloğu,
+   oyun kutuları ondan daha geniş bir boşlukla ayrılır) — eskiden başlık üstte
+   sabit, kutular ekranın geri kalanını dolduran ayrı bir katmandı; aradaki dev
+   boşluk dengesiz duruyordu. */
+.hub-content{
+  display:flex;flex-direction:column;align-items:center;
+  gap:clamp(32px,6vh,64px);padding:0 8vw;text-align:center;z-index:1;
 }
+.hub-header{display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.6vh,16px);}
+.hub-logo{width:clamp(110px,20vw,180px);height:auto;filter:invert(1);}
+.hub-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,10vw,90px);color:#FFD700;letter-spacing:6px;line-height:1;}
+.hub-sub{font-family:'Space Mono',monospace;font-size:clamp(11px,2vw,14px);color:#aaa;letter-spacing:1px;}
 
-/* NOT — videonun kahve kenarını renklendirme denemesi GERİ ALINDI (2026-09-19).
-   Videonun çerçevesi sepya/kahve; CSS katmanıyla değiştirmek iki kez denendi:
-     1) mix-blend-mode:color ile bordo — parlaklığı koruduğu için videonun
-        yazısı kayboluyordu ama değişim o kadar hafifti ki fark edilmedi.
-     2) dört kenara düz mor — bu kez belirgindi, sahada bakıldı ve beğenilmedi.
-   Sonuç: video olduğu gibi kalıyor. Aynı fikre dönülürse asıl çözüm videoyu
-   yeni renkle yeniden export etmek; ölçülen kart sınırları x 160..907,
-   y 505..1720 (kahve bu dikdörtgenin dışında kalan her yer). */
+/* ── Oyun kutuları — düz siyah, resimsiz. Yeni oyun eklerken buraya aynı
+   sınıfla (.hub-game-card) bir buton daha eklenir, grid kendiliğinden sarar. */
+.hub-games-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;}
+.hub-game-card{
+  width:min(62vw,260px);aspect-ratio:1;background:#0a0a0a;border:2px solid #FFD700;
+  border-radius:18px;color:#fff;font-family:'Space Mono',monospace;cursor:pointer;
+  touch-action:manipulation;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px;box-shadow:0 10px 34px rgba(255,215,0,0.10);
+  transition:transform 0.15s ease;
+}
+.hub-game-card:active{transform:scale(0.96);}
+.hub-game-icon{font-size:44px;}
+.hub-game-name{font-size:16px;font-weight:700;letter-spacing:3px;color:#FFD700;line-height:1.3;}
+
+/* ── Oyun tanıtım ekranı (#gamePromo) — oyunun KENDİ ana sayfası ── */
+.promo-vid{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:0;}
 
 
-/* ── Kayan şeritler: ZEMİN ALTIN, YAZI SİYAH ──
+/* ── Kayan şeritler — 2026-09'da ana sayfadan kaldırıldı (kalıcı platform
+   girişi kampanya reklamı taşımamalı). Sınıflar burada kalıyor, ayarlanmış
+   hız/boyut değerleri yeniden kullanılabilsin diye — şu an HİÇBİR yerde
+   DOM'da kullanılmıyor. ZEMİN ALTIN, YAZI SİYAH: ──
    Eskiden kahve zemin (#1a0f05) üstüne beyaz 13px yazı vardı. Kahve, videonun
    sepya kenarlarına UYSUN diye seçilmişti ve şerit neredeyse görünmez oluyordu.
    Artık amaç uyum değil dikkat çekmek: Akademi kampanya cümleleri okunsun.
@@ -83,15 +107,10 @@ body{font-family:'Bebas Neue',sans-serif;}
 @keyframes hsB{0%{transform:translateY(-50%) translateX(-50%)}100%{transform:translateY(-50%) translateX(0)}}
 
 
-/* ── OYNA butonu ── */
-/* bottom: çentikli iPhone'larda home-indicator şeridiyle çakışmasın diye güvenli alan eklenir.
-   6.9vw = alt bandın kalınlığı: buton bandın ÜSTÜNDE durmalı. Eskiden sabit 52px'ti
-   ve 1080x1920'de butonun alt 23px'i bandın içinde kalıyordu; bant kahveyken sarı
-   buton yine seçiliyordu, bant altına dönünce alt kenarı bandın içinde eriyecekti.
-   Bant kalınlığına bağlandı ki bant büyürse buton da birlikte kaysın.
-   border: bant da buton da altın; aradaki sınır çizgiyle veriliyor. Kenarlığı
-   kaldırırsan buton sarı zeminde şeklini kaybeder. */
-#btnGame{position:absolute;bottom:calc(6.9vw + 28px);bottom:calc(6.9vw + 28px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:10;padding:16px 80px;background:#FFD700;color:#000;border:3px solid #000;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 24px rgba(0,0,0,0.5);white-space:nowrap;}
+/* Not: eski #btnGame (tek "OYNA" butonu) 2026-09'da kaldırıldı — ana sayfa artık
+   doğrudan oyun kutuları gösteriyor (.hub-game-card), ayrı bir OYNA adımı yok.
+   Aynı bottom/border mantığı #btnPromoEnter'da (oyunun kendi ana sayfasında)
+   hâlâ kullanılıyor, bkz. #gamePromo. */
 
 /* Logo çubuğunun GERÇEK yüksekliği tek yerden hesaplanır. Oyun sayfalarının üst
    boşluğu buna bağlı olmalı: ikisi ayrı ayrı clamp'lendiğinde 1080x1920 kioskta
@@ -111,23 +130,26 @@ body{font-family:'Bebas Neue',sans-serif;}
 </head>
 <body>
 
-<button id="btnKasaAccess" aria-label="Kasa Paneli" style="position:fixed;top:calc(6.9vw + 10px + env(safe-area-inset-top,0px));right:calc(10px + env(safe-area-inset-right,0px));z-index:10001;background:#000;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.3);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;padding:6px 10px;cursor:pointer;touch-action:manipulation;">KASA</button>
+<button id="btnKasaAccess" aria-label="Kasa Paneli" style="position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:calc(10px + env(safe-area-inset-right,0px));z-index:10001;background:#000;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.3);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;padding:6px 10px;cursor:pointer;touch-action:manipulation;">KASA</button>
 
+<!-- Ana sayfa / oyun seçimi TEK ekranda (2026-09'da #gameSelect ile birleştirildi):
+     "ZUHAL GAME" başlığı + altında oyun kutuları. Kalıcı, çok yıllı bir platform
+     ekranı olduğu için 50. Yıl kampanyasına özel metin/şerit YOK — bkz. CLAUDE.md
+     "Sayfa 1" notu. -->
 <div class="banner">
-  <video class="banner-vid" src="Genel-Halftime-v3.mp4" autoplay muted loop playsinline webkit-playsinline></video>
-
-  <!-- Sol şerit: PNG sol koyu kenara örter, yukarı akar -->
-  <div class="vs vs-l"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-  <!-- Sağ şerit: PNG sağ koyu kenara örter, aşağı akar -->
-  <div class="vs vs-r"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-
-  <!-- Üst yatay bant: kartın üst iç şeridini örter, sola akar -->
-  <div class="hs hs-t"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-  <!-- Alt yatay bant -->
-  <div class="hs hs-b"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-
-
-<button id="btnGame">▶ OYNA</button>
+  <div class="hub-content">
+    <div class="hub-header">
+      <img class="hub-logo" src="zuhal-fifty-year-black.jpg" alt="Zuhal Müzik 50. Yıl" />
+      <div class="hub-title">ZUHAL GAME</div>
+      <div class="hub-sub">Oynamak istediğin oyunu seç!</div>
+    </div>
+    <div class="hub-games-grid">
+      <button id="cardRhythmChallenge" class="hub-game-card" aria-label="Rhythm Challenge oyununu seç">
+        <span class="hub-game-icon">🥁</span>
+        <span class="hub-game-name">RHYTHM<br/>CHALLENGE</span>
+      </button>
+    </div>
+  </div>
 </div>
 
 
@@ -137,17 +159,21 @@ body{font-family:'Bebas Neue',sans-serif;}
     <img id="overlayLogo" src="zuhal-fifty-year-black.jpg" alt="Zuhal Müzik 50. Yıl" style="height:var(--logobar-img);width:auto;object-fit:contain;display:block;pointer-events:auto;cursor:default;filter:invert(1);" />
   </div>
 
-  <!-- OYUN SEÇ — kiosk tek oyunla başladı, ileride başka oyunlar bu ekrana kart olarak eklenecek. -->
-  <div id="gameSelect" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:clamp(16px,3vh,32px);padding:var(--page-top) clamp(20px,4vw,48px) clamp(20px,4vh,48px);box-sizing:border-box;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch;">
-    <div style="font-family:'Oddee','Space Mono',monospace;font-size:32px;font-weight:700;color:#FFD700;letter-spacing:4px;">OYUN SEÇ</div>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;width:100%;max-width:640px;">
-      <button id="cardRhythmChallenge" aria-label="Rhythm Challenge oyununu seç" style="width:260px;background:#111;border:2px solid #FFD700;color:#fff;font-family:'Space Mono',monospace;cursor:pointer;touch-action:manipulation;padding:24px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;">
-        <span style="font-size:40px;">🥁</span>
-        <span style="font-size:16px;font-weight:700;letter-spacing:3px;color:#FFD700;">RHYTHM<br/>CHALLENGE</span>
-        <span style="font-size:9px;color:#aaa;letter-spacing:1px;">Whitney Houston — tom vuruşu</span>
-      </button>
-    </div>
-    <button id="btnGameSelectBack" aria-label="Ana Sayfaya Dön" style="background:transparent;color:#555;border:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;cursor:pointer;padding:10px;">← GERİ DÖN</button>
+  <!-- OYUN TANITIMI — seçilen oyunun KENDİ ana sayfası. Genel-Halftime-v3.mp4
+       içinde "RHYTHM CHALLENGE" başlığı ve kart grafiği GÖMÜLÜ (video içeriği,
+       DOM metni değil) — bu yüzden burada ayrıca başlık yazılmıyor. Kayan Akademi
+       şeritleri BİLEREK burada var — ana sayfada (.banner) yok: şeritler kalıcı
+       çok-oyunlu girişte değil, oyuna özel ekranda kalsın istendi (2026-09). -->
+  <div id="gamePromo" style="display:none;width:100%;height:100%;position:relative;overflow:hidden;">
+    <video id="promoVidRhythm" class="promo-vid" src="games/rhythm-challenge/Genel-Halftime-v3.mp4" muted loop playsinline webkit-playsinline></video>
+
+    <div class="vs vs-l"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+    <div class="vs vs-r"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+    <div class="hs hs-t"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+    <div class="hs hs-b"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+
+    <button id="btnPromoBack" aria-label="Ana sayfaya dön" style="position:absolute;top:calc(6.9vw + 10px);left:16px;z-index:10;background:#000;border:1px solid rgba(255,255,255,0.4);color:#fff;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;touch-action:manipulation;padding:10px 16px;box-shadow:0 2px 10px rgba(0,0,0,0.6);">← OYUNLAR</button>
+    <button id="btnPromoEnter" aria-label="Rhythm Challenge'a başla" style="position:absolute;bottom:calc(6.9vw + 28px);bottom:calc(6.9vw + 28px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:10;padding:16px 80px;background:#FFD700;color:#000;border:3px solid #000;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 24px rgba(0,0,0,0.5);white-space:nowrap;">▶ OYNA</button>
   </div>
 
   <!-- BAŞLANGIÇ -->
@@ -711,11 +737,15 @@ function makeCode(prizeCode) {
 }
 
 function wShowPanel(id) {
-  ["gameSelect","gameStart","gamePlaying","gameWin"].forEach(function(p) {
+  ["gamePromo","gameStart","gamePlaying","gameWin"].forEach(function(p) {
     var el = document.getElementById(p);
     if (el) el.style.display = "none";
   });
   document.getElementById(id).style.display = "flex";
+  // #gamePromo'nun kendi videosu zaten "50" logosunu/başlığı taşıyor — üstteki
+  // ortak logo çubuğu üst üste binip kalabalıklaşıyordu, sadece bu panelde gizlenir.
+  var logoBar = document.getElementById("overlayLogoBar");
+  if (logoBar) logoBar.style.display = (id === "gamePromo") ? "none" : "flex";
 }
 
 // Ses çıkış gecikmesi ölçümü.
@@ -764,17 +794,25 @@ function stopWAudio() {
   }
 }
 
-function openGameOverlay() {
-  // Banner sesini durdur
-  if (typeof stopBannerAudio === 'function') stopBannerAudio();
-
+// Ana sayfadaki "RHYTHM CHALLENGE" kutusuna basınca çağrılır: overlay'i açar ve
+// oyunun KENDİ ana sayfasını (#gamePromo, tanıtım videosu) gösterir.
+// Yeni bir oyun eklendiğinde her kutu kendi pickXxx() fonksiyonuna bağlanır.
+// Banner müziği (zuhal-muzik.wav) SADECE bu ekranda çalar (2026-09 kararı: Zuhal
+// Game ana sayfası sessiz) — buraya girince otomatik başlar, ekrana dokununca
+// aç/kapa yapılabilir (bkz. gamePromoTouch), gerçek oyuna geçilince kesilir.
+function pickRhythmChallenge() {
   document.getElementById("gameOverlay").style.display = "block";
-  wShowPanel("gameSelect");
+  startBannerAudio();
+  wShowPanel("gamePromo");
+  var v = document.getElementById("promoVidRhythm");
+  if (v) { v.currentTime = 0; v.play().catch(function(){}); }
 }
 
-// Oyun seçim ekranından "RHYTHM CHALLENGE" kartına basınca çağrılır.
-// Yeni bir oyun eklendiğinde her kart kendi pickXxx() fonksiyonuna bağlanır.
-function pickRhythmChallenge() {
+// #gamePromo'daki "▶ OYNA" — asıl oyun akışına (isim girişi) geçer.
+function enterRhythmChallenge() {
+  var v = document.getElementById("promoVidRhythm");
+  if (v) v.pause();
+  if (typeof stopBannerAudio === 'function') stopBannerAudio();
   stopWAudio();
   clearTimeout(missTimerW);
   clearInterval(progressTimerW);
@@ -789,14 +827,16 @@ function pickRhythmChallenge() {
 
 function closeGame() {
   document.getElementById("gameOverlay").style.display = "none";
+  var promoV = document.getElementById("promoVidRhythm");
+  if (promoV) promoV.pause();
+  // Ana sayfa (.banner) sessiz olmalı — müzik buraya dönerken KESİLİR, yeniden
+  // BAŞLATILMAZ (eskiden 400ms sonra otomatik başlıyordu, artık ana sayfada müzik yok).
+  if (typeof stopBannerAudio === 'function') stopBannerAudio();
   stopWAudio();
   clearTimeout(missTimerW);
   clearInterval(progressTimerW);
   gameRunning = false;
   hitMade = false;
-  setTimeout(function() {
-    if (typeof startBannerAudio === 'function') startBannerAudio();
-  }, 400);
 }
 
 function playBufferAndStart() {
@@ -2536,10 +2576,31 @@ document.addEventListener("DOMContentLoaded", function() {
   bindTap(logoEl, onLogoTap);
   bindTap(document.getElementById("btnBasla"), startWhitneyGame);
 
-  addBtn("btnGeri",  function() { wShowPanel("gameSelect"); });
-  addBtn("btnGameSelectBack", closeGame);
-  addBtn("cardRhythmChallenge", pickRhythmChallenge);
-  addBtn("btnTamam", closeGame);
+  // Hem isim ekranındaki "GERİ DÖN" hem de sonuç ekranındaki "TAMAM" oyunun kendi
+  // ana sayfasına (#gamePromo) döner — Zuhal Game hub'ına değil (kullanıcı kararı:
+  // oyun bitince tekrar oynanabilsin diye önce kendi ana sayfasını görmeli).
+  function backToGamePromo() {
+    stopWAudio();
+    clearTimeout(missTimerW);
+    clearInterval(progressTimerW);
+    gameRunning = false;
+    wShowPanel("gamePromo");
+    var v = document.getElementById("promoVidRhythm");
+    if (v) v.play().catch(function(){});
+    startBannerAudio();
+  }
+  addBtn("btnGeri",  backToGamePromo);
+  addBtn("cardRhythmChallenge", function() {
+    unlockAC();
+    pickRhythmChallenge();
+  });
+  addBtn("btnPromoBack", function() {
+    var v = document.getElementById("promoVidRhythm");
+    if (v) v.pause();
+    closeGame();
+  });
+  addBtn("btnPromoEnter", enterRhythmChallenge);
+  addBtn("btnTamam", backToGamePromo);
   addBtn("btnTekrarOyna", startGameDirectly);
   addBtn("btnStatsClose", closeStats);
   // İNDİR butonu bilerek bindTap KULLANMAZ. bindTap "pointerdown"a bağlanır;
@@ -2582,31 +2643,13 @@ document.addEventListener("DOMContentLoaded", function() {
   // yani mevcut kioskta vuruş gecikmesi değişmez.
   bindTap(document.getElementById("btnVur"), function (e) { handleHit("touch", e); });
 
-  bindTap(document.getElementById("btnGame"), function() {
-    unlockAC();
-    openGameOverlay();
-  });
-
-  // Banner dokunuş toggle — YALNIZCA ana sayfada çalışmalı.
-  // Eskiden dinleyici document.body'deydi ve yalnızca gameOverlay'e bakıyordu:
-  // kasa paneline, PIN ekranına, hatta KASA butonunun kendisine basarken bile
-  // tetikleniyor, personel panelde gezerken müzik durup duruyordu.
-  // Artık dinleyici .banner üzerinde ve üstteki katmanların hiçbiri açık
-  // olmamalı. Buton kontrolü de şart: OYNA/KASA butonuna basış banner'a da
-  // kabarıyor, aksi halde oyun açılırken müzik bir kez daha toggle olur.
-  var bannerEl = document.querySelector(".banner");
-
-  function ustKatmanAcikMi() {
-    var idler = ["gameOverlay", "statsModal", "pinModal"];
-    for (var i = 0; i < idler.length; i++) {
-      var el = document.getElementById(idler[i]);
-      if (el && getComputedStyle(el).display !== "none") return true;
-    }
-    return false;
-  }
-
-  function bannerTouch(e) {
-    if (ustKatmanAcikMi()) return;
+  // Müzik SADECE Rhythm Challenge'ın kendi ana sayfasında (#gamePromo) var —
+  // Zuhal Game ana sayfası (.banner) sessiz, orada dokunuşla aç/kapa YOK
+  // (2026-09 kararı: kalıcı ana sayfa reklam/müzik taşımaz). Butona basış hariç
+  // tutulur ki oyunun kendi OYNA/OYUNLAR butonlarına basış müziği toggle etmesin.
+  // bindTap kullanılıyor (eskiden elle touchstart/click dallanması vardı ama
+  // sahada "dokununca susmuyor" hatası verdi — bindTap zaten butonlarda kanıtlanmış).
+  bindTap(document.getElementById("gamePromo"), function(e) {
     if (e.target && e.target.closest && e.target.closest("button")) return;
     unlockAC();
     if (bannerAudioOn) {
@@ -2614,16 +2657,7 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       startBannerAudio();
     }
-  }
-  // Touch cihazda SADECE touchstart, mouse'ta SADECE click — çift tetiklenme yok
-  var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-  if (bannerEl) {
-    if (isTouch) {
-      bannerEl.addEventListener("touchstart", bannerTouch, {passive:true});
-    } else {
-      bannerEl.addEventListener("click", bannerTouch);
-    }
-  }
+  });
 
   // Sayfa yüklenince arka planda decode başlat
   setTimeout(preDecodeAudio, 500);

@@ -66,29 +66,25 @@ Zuhal Müzik 50. Yıl — Rhythm Challenge. Müşteriler Whitney Houston parças
 ```
 index.html                  ← Kiosk uygulaması (tüm CSS + JS burada, ses artık harici)
 k.html                      ← Müşterinin telefonunda açılan kupon sayfası (QR bunu gösterir)
-Genel-Halftime-v3.mp4       ← Ana sayfa banner videosu (autoplay, muted, loop) — dikey 1080x1920, 9.6 sn, 12.9 MB
 zuhal-muzik.wav             ← Banner arka plan müziği (dokunuşla aç/kapat)
-zuhal-fifty-year-black.jpg  ← Oyun ekranı logosu (filter:invert(1) ile beyaza çevrilmiş)
+zuhal-fifty-year-black.jpg  ← Ortak logo — ana sayfa başlığında (`.hub-logo`) VE oyun ekranı logosunda kullanılır (filter:invert(1) ile beyaza çevrilmiş)
 games/rhythm-challenge/
   whitney-halftime.mp3      ← Oyun içi Whitney Houston parçası (fetch + Web Audio API decode)
+  Genel-Halftime-v3.mp4     ← Oyunun KENDİ tanıtım ekranı videosu (#gamePromo) — dikey 1080x1920, 9.6 sn, 12.9 MB
+  Genel-Halftime.mp4        ← v1, yatay 832x464, 1.1 MB — kullanılmıyor, SILME (kampanyaya dönülürse lazım)
+  Genel-Halftime-v2.mp4     ← v2, dikey 480x848 (WhatsApp sıkıştırmalı), 1.55 MB — kullanılmıyor, SILME
 ```
 
 **`games/<oyun-adi>/` — çoklu oyun için ayrılmış klasör.** Kiosk 2026-09'da tek oyunla
-(Rhythm Challenge) çıktı ama birden fazla oyun eklenmesi planlanıyor; her oyuna ÖZEL
-medya (o oyunun müziği, ödül grafiği vb.) kendi `games/<oyun-adi>/` klasörüne konur.
-Banner videosu/müziği ve 50. yıl logosu buraya GİRMEZ — hepsi ortak marka varlığı,
-kökte kalır. **Kod hâlâ tek `index.html` dosyasında** (bkz. "Oyun Seç Ekranı" ve
-Çoklu Oyun Mimarisi notu) — kioskun tam ekran/PWA garantisi sayfa navigasyonu
-OLMAMASINA dayanıyor, bu yüzden yeni oyun eklerken ayrı bir `.html` dosyasına
-GEÇME, aynı dosyaya yeni bir panel + `pickXxx()` fonksiyonu olarak ekle.
-
-**Kasıtlı olarak tutulan eski banner videoları** (hiçbir yerden referans verilmiyor,
-ama SILME — kampanyaya geri dönülürse tekrar kullanılacak, sahibi öyle karar verdi):
-
-```
-Genel-Halftime.mp4          ← v1, yatay 832x464, 1.1 MB
-Genel-Halftime-v2.mp4       ← v2, dikey 480x848 (WhatsApp sıkıştırmalı), 1.55 MB
-```
+(Rhythm Challenge) çıktı, sonra çoklu oyuna geçildi; her oyuna ÖZEL medya (o oyunun
+müziği, tanıtım videosu, ödül grafiği vb.) kendi `games/<oyun-adi>/` klasörüne konur.
+Banner müziği ve 50. yıl logosu buraya GİRMEZ — hepsi ortak marka varlığı, kökte
+kalır (ana sayfa NÖTR, belirli bir oyuna ait olmamalı — bkz. "Sayfa 1 — Ana Sayfa").
+**Kod hâlâ tek `index.html` dosyasında** (bkz. "Sayfa 1 — Ana Sayfa" ve
+"Sayfa 2+3 — Oyun Ekranı") — kioskun tam ekran/PWA garantisi sayfa navigasyonu OLMAMASINA
+dayanıyor, bu yüzden yeni oyun eklerken ayrı bir `.html` dosyasına GEÇME, aynı
+dosyaya yeni bir panel + `pickXxx()` fonksiyonu olarak ekle; sadece MEDYA dosyaları
+`games/<oyun-adi>/` altına taşınır, kod değil.
 
 **Kiosk / PWA dosyaları:**
 
@@ -106,51 +102,73 @@ Fullscreen API, `navigationUI:"hide"`) kullanılır.
 ile beyaza çevriliyor, `k.html`'de ise beyaz zemine olduğu gibi basılıyor (siyah logo
 yazdırmaya da uygun). Logoyu değiştirirken iki tarafı da kontrol et.
 
-Repoda bu 5 medya dosyası dışında hiçbir medya kullanılmıyor — yeni bir görsel/video eklerken önce `index.html` içinde gerçekten referans verildiğinden emin ol, aksi halde Vercel deploy boyutu şişer.
+Repoda yukarıdaki medya dosyaları dışında (kullanılmayan 2 eski Genel-Halftime videosu hariç) hiçbir medya kullanılmıyor — yeni bir görsel/video eklerken önce `index.html` içinde gerçekten referans verildiğinden emin ol, aksi halde Vercel deploy boyutu şişer.
 
 ## index.html Mimarisi
 
 Tüm uygulama tek HTML dosyasında, 3 katman:
 
-### Sayfa 1 — Banner (`.banner`)
-- `<video class="banner-vid">` → `Genel-Halftime-v3.mp4` tam ekran
-- Sol/sağ dikey kayan şeritler (`.vs-l`, `.vs-r`) ve üst/alt yatay bantlar (`.hs-t`, `.hs-b`) — Akademi kampanya cümleleri, CSS animasyonlu
-  - **Metin tam olarak İKİ eş yarıdan oluşmalı.** Animasyon `-50%` kaydırıyor; yarılar birebir aynı değilse döngü başa dönerken görünür bir sıçrama olur. Şu an 5 cümlelik grup 4 kez tekrarlanıyor (çift sayı şart) ve her cümle `• ` ile bitiyor — son tekrardaki boşluğu da SİLME.
-  - **Toplam uzunluk ekranı aşmalı**: bir yarı, yatayda ekran genişliğinden / dikeyde ekran yüksekliğinden uzun olmazsa şeritte boşluk açılır. 1080x1920'de ölçülen kapsama: yatay 3.90×, dikey 2.20×. Cümleleri kısaltırsan tekrar sayısını artır.
-  - **Akış hızı 107 px/sn olmalı** — sahada okunabilir bulunan hız bu. Süre sabit olduğu için metin uzadıkça veya yazı büyüdükçe akış HIZLANIR. Yazı 13px'ten ~26px'e çıkarıldığında piksel uzunluğu iki katına çıktı ve süre 20 sn → 40 sn yapıldı. Boyutu/metni değiştirirsen `vsL`/`vsR`/`hsT`/`hsB` sürelerini yeniden hesapla (yarı mesafesi ÷ 107).
-  - **Zemin altın (`#FFD700`), yazı siyah.** Eskiden kahve zemin (`#1a0f05`) üstüne beyaz yazıydı: kahve, videonun sepya kenarlarına UYSUN diye seçilmişti ve şerit neredeyse görünmez oluyordu. Artık amaç uyum değil dikkat çekmek — kampanya cümleleri okunsun. Ton kioskun geri kalanıyla aynı; `k.html` kuponundaki `#FFC800` bilerek AYRI (kupon beyaz kâğıda basılıyor, ekran sarısı orada fazla parlıyor).
-  - **Yazı boyutu vw tabanlı olmalı** (`clamp(13px,2.4vw,30px)`): şerit kalınlığı da `6.9vw`, ikisi birlikte ölçeklenince yazı her ekranda bandın ~%35'i kalıyor. Sabit px verilirse küçük ekranda bandı taşırıyor.
-- `#btnGame` → Oyun ekranını açar, banner sesini durdurur
-  - **Alt bandın ÜSTÜNDE durmalı.** `bottom` eskiden sabit `52px`'ti ve 1080x1920'de butonun alt 23px'i bandın içinde kalıyordu; bant kahveyken sarı buton yine seçiliyordu, bant altına dönünce alt kenarı bandın içinde eriyordu. Artık `calc(6.9vw + 28px)`, yani bant kalınlığına bağlı — bandı büyütürsen buton da birlikte kayar.
-  - `border:3px solid #000` bant ile buton aynı altın olduğu için var; kaldırırsan buton sarı zeminde şeklini kaybeder.
-- `#btnKasaAccess` (sağ üstte, sabit/fixed, düşük opaklık) → Kasa PIN ekranını açar, sayfa durumundan bağımsız her zaman görünür
-- **Ekrana dokununca müzik aç/kapa YALNIZCA bu sayfada çalışır.** Dinleyici `.banner`
-  üzerinde (eskiden `document.body`'deydi) ve `bannerTouch()` iki koşulda hiç
-  çalışmaz: `ustKatmanAcikMi()` (`gameOverlay` / `statsModal` / `pinModal`'dan biri
-  açıksa) ve dokunulan yer bir `<button>` içindeyse. İkisi de sahada görülen
-  hatalardan geliyor: personel kasa panelinde gezerken müzik durup duruyordu, OYNA
-  butonuna basış da banner'a kabarıp müziği bir kez daha toggle ediyordu. Yeni bir
-  tam ekran katman eklersen id'sini `ustKatmanAcikMi()` listesine EKLE.
+### Sayfa 1 — Ana Sayfa (`.banner`) — KALICI platform girişi, oyun seçimi burada
+- **Tek ekranda hem marka hem oyun seçimi** (2026-09, birkaç iterasyondan sonra son
+  hâli). Önce ayrı bir `#gameSelect` paneli denendi, sonra kullanıcı isteğiyle ana
+  sayfayla birleştirildi — artık `.banner` > `.hub-content` (tek dikey grup, `.banner`
+  tarafından ekranda DÜŞEY ORTALANIR) > `.hub-header` (50. yıl logosu + "ZUHAL GAME"
+  başlığı + kısa açıklama, sıkı bir marka bloğu — küçük `gap`) + `.hub-games-grid`
+  (oyun kutuları, `.hub-game-card` — headerdan daha büyük bir `gap` ile ayrılır).
+  Logo büyük tutulur (`clamp(110px,20vw,180px)`) — küçük logo + başlıkla aynı hizada
+  olmayan kutular "estetik değil" bulunup büyütüldü, sonra tek grup hâline getirildi.
+  Şu an tek kutu var (`#cardRhythmChallenge`).
+- **NÖTR ve KALICI olmalı — 50. Yıl kampanyasına özel metin/reklam YOK.** Bu ekran
+  tek seferlik bir kampanya sayfası değil, yıllarca birçok etkinlikte kullanılacak
+  platform girişi (kullanıcı kararı, 2026-09). Bu yüzden "50. Yıl kutlama" gibi
+  kampanyaya özel ibareler kullanılmaz, sadece "ZUHAL GAME" / oyun seç mesajı olur.
+  Aynı sebeple **kayan Akademi şeritleri (`.vs-l/.vs-r/.hs-t/.hs-b`) burada YOK** —
+  reklam şeridi kalıcı girişte değil, oyuna özel ekranda kalsın istendi (aşağıya bkz).
+  Eskiden bu ekran doğrudan `Genel-Halftime-v3.mp4` videosuydu; video içine
+  "RHYTHM CHALLENGE" başlığı GÖMÜLÜYDÜ (piksel, DOM metni değil) — o video artık
+  seçilen oyunun KENDİ tanıtım ekranı (`#gamePromo`, bkz. aşağıda).
+- **Yeni oyun eklerken:** `.hub-games-grid` içine `.hub-game-card` sınıfıyla bir
+  kutu daha ekle (grid kendiliğinden sarar), kutunun kendi `pickXxx()` fonksiyonunu
+  yaz (bkz. `pickRhythmChallenge()` — `gameOverlay`'i açar + oyunun kendi ilk
+  panelini gösterir). Kutu görseli **düz siyah** olmalı (resim/foto YOK, sade
+  ikon+isim) — kullanıcı kararı, ana sayfa sade kalsın.
+- `#btnKasaAccess` (sağ üstte, sabit/fixed, düşük opaklık) → Kasa PIN ekranını açar, sayfa durumundan bağımsız her zaman görünür. Şerit kaldırılınca üstten boşluğu da sadeleşti (`calc(10px + safe-area)`, eskiden bant kalınlığı için ekstra pay vardı).
+- **Bu sayfa SESSİZ — müzik burada YOK** (2026-09 kararı). Eskiden `zuhal-muzik.wav`
+  buraya dokununca aç/kapa oluyordu (`bannerTouch()`); sahada "dokununca müzik
+  susmuyor" hatası bildirildi VE kalıcı ana sayfanın reklam/müzik taşımaması
+  istendiği için tamamen kaldırıldı. Müzik artık SADECE `#gamePromo`'da (bkz.
+  aşağıda) — oraya girince otomatik başlar.
 
 ### Sayfa 2+3 — Oyun Ekranı (`#gameOverlay`, `z-index:9999`)
-- `#gameSelect` → **Oyun seçim ekranı** (2026-09 eklendi). `#btnGame` (OYNA) artık
-  doğrudan oyuna değil buraya açılır; her oyun bir karttır (`#cardRhythmChallenge`
-  vb.), karta basınca o oyunun `pickXxx()` fonksiyonu çağrılır ve `wShowPanel()` ile
-  ilgili `gameStart` paneline geçilir. Şu an tek kart var (Rhythm Challenge). **Yeni
-  oyun eklerken:** (1) `#gameSelect` içine yeni bir kart `<button>` ekle, (2) o
-  oyunun kendi `gameStart`/`gamePlaying`/`gameWin` panellerini ekle, (3) `wShowPanel`
-  içindeki gizlenecek panel listesine yeni panel id'lerini ekle, (4) kartın kendi
-  `pickXxx()` fonksiyonunu yaz (bkz. `pickRhythmChallenge()` — ilgili sesi/inputu
-  sıfırlar, `preDecodeAudio()` gibi oyuna özel hazırlığı yapar). Bu ekran
-  `gameOverlay`'in İÇİNDE olduğu için `ustKatmanAcikMi()` listesine ayrıca eklemeye
-  gerek YOK — üst katman zaten `gameOverlay` id'siyle takip ediliyor.
-  Oyunun kendi `gameStart` ekranındaki "GERİ DÖN" artık `closeGame()`'e değil
-  `#gameSelect`'e döner (banner'a dönmek için `#gameSelect`'in kendi "GERİ DÖN"'ü
-  kullanılır) — tek oyunken fark etmiyordu, birden fazla oyunla kullanıcı önce
-  seçim ekranına dönmeli.
+- `#gamePromo` → **Seçilen oyunun KENDİ ana sayfası.** Ana sayfadaki kutuya basınca
+  çağrılan `pickXxx()` fonksiyonu (örn. `pickRhythmChallenge()`) `gameOverlay`'i açar,
+  `startBannerAudio()` ile `zuhal-muzik.wav`'ı BAŞLATIR (kalıcı ana sayfada değil,
+  müzik SADECE burada var) ve bu paneli gösterir; `games/<oyun-adi>/` altındaki
+  tanıtım videosunu `currentTime=0` ile baştan oynatır. Ekrana dokununca (butonlar
+  hariç) müzik `bindTap` ile aç/kapa yapılabilir — elle `touchstart`/`click`
+  dallanması DENENDİ ve sahada "dokununca susmuyor" hatası verdi, `bindTap`
+  (butonlarda zaten kanıtlanmış) kullanılınca düzeldi; yeni bir dokunuş dinleyicisi
+  eklerken hep `bindTap` kullan, elle dallanma YAZMA. Panel gizlenirken
+  (`btnPromoBack`, `enterRhythmChallenge()`, `closeGame()`) hem video hem müzik
+  durur ki arka planda gereksiz çalmasın. **Kayan Akademi şeritleri BİLEREK burada
+  var** — ana sayfada yok (kullanıcı kararı: reklam şeridi kalıcı girişte değil,
+  oyuna özel ekranda kalsın). Kendi "▶ OYNA" (`btnPromoEnter` → `enterRhythmChallenge()`)
+  butonu asıl oyuna (`#gameStart`) geçer, orada isim girişi + `preDecodeAudio()`
+  çalışır (müzik burada da kesilir); "← OYUNLAR" (`btnPromoBack`) `closeGame()` ile
+  ana sayfaya döner (müzik durur, yeniden BAŞLAMAZ — ana sayfa sessiz). **Yeni oyun
+  eklerken:** oyunun kendi tanıtımı/videosu/müziği varsa aynı desenle (`#gamePromo`
+  yerine kendi id'si) bir ara ekran ekle — yoksa kutu doğrudan kendi `gameStart`'ına
+  geçebilir.
+  `gameStart`'taki "GERİ DÖN" **ve** `gameWin`'deki "TAMAM" ikisi de `closeGame()`'e
+  değil ortak `backToGamePromo()` fonksiyonuna bağlı (`wShowPanel("gamePromo")` +
+  `video.play()` + `startBannerAudio()`) — oyun bitip hediye gösterildikten sonra
+  Zuhal Game hub'ına değil, oyunun kendi ana sayfasına dönülür (kullanıcı kararı:
+  müşteri tekrar oynamak isteyebilir, hub'a gitmesi gereksiz ekstra adım). Hub'a
+  dönmek isteyen `#gamePromo`'daki "← OYUNLAR"a (`btnPromoBack` → `closeGame()`)
+  basmalı. Akış: ana sayfa → tanıtım → isim girişi → oyun → sonuç → (TAMAM) → tanıtım.
 - `#gameStart` → İsim girişi, ödül listesi, BAŞLA butonu
 - `#gamePlay` → Oyun alanı (aktif vuruş)
-- `#gameWin` → Sonuç ve ödül gösterimi
+- `#gameWin` → Sonuç ve ödül gösterimi — "TAMAM" davranışı yukarıda
 - `#overlayLogoBar` → Zuhal 50. Yıl logosu (tüm oyun sayfalarında sabit, üstte)
 - **Logo çubuğu yüksekliği ile sayfa üst boşluğu tek kaynaktan gelir** (`:root`
   içindeki `--logobar-img` / `--logobar-pad` / `--logobar-h` / `--page-top`).
