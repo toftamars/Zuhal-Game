@@ -68,9 +68,19 @@ index.html                  ← Kiosk uygulaması (tüm CSS + JS burada, ses art
 k.html                      ← Müşterinin telefonunda açılan kupon sayfası (QR bunu gösterir)
 Genel-Halftime-v3.mp4       ← Ana sayfa banner videosu (autoplay, muted, loop) — dikey 1080x1920, 9.6 sn, 12.9 MB
 zuhal-muzik.wav             ← Banner arka plan müziği (dokunuşla aç/kapat)
-whitney-halftime.mp3        ← Oyun içi Whitney Houston parçası (fetch + Web Audio API decode)
 zuhal-fifty-year-black.jpg  ← Oyun ekranı logosu (filter:invert(1) ile beyaza çevrilmiş)
+games/rhythm-challenge/
+  whitney-halftime.mp3      ← Oyun içi Whitney Houston parçası (fetch + Web Audio API decode)
 ```
+
+**`games/<oyun-adi>/` — çoklu oyun için ayrılmış klasör.** Kiosk 2026-09'da tek oyunla
+(Rhythm Challenge) çıktı ama birden fazla oyun eklenmesi planlanıyor; her oyuna ÖZEL
+medya (o oyunun müziği, ödül grafiği vb.) kendi `games/<oyun-adi>/` klasörüne konur.
+Banner videosu/müziği ve 50. yıl logosu buraya GİRMEZ — hepsi ortak marka varlığı,
+kökte kalır. **Kod hâlâ tek `index.html` dosyasında** (bkz. "Oyun Seç Ekranı" ve
+Çoklu Oyun Mimarisi notu) — kioskun tam ekran/PWA garantisi sayfa navigasyonu
+OLMAMASINA dayanıyor, bu yüzden yeni oyun eklerken ayrı bir `.html` dosyasına
+GEÇME, aynı dosyaya yeni bir panel + `pickXxx()` fonksiyonu olarak ekle.
 
 **Kasıtlı olarak tutulan eski banner videoları** (hiçbir yerden referans verilmiyor,
 ama SILME — kampanyaya geri dönülürse tekrar kullanılacak, sahibi öyle karar verdi):
@@ -123,6 +133,21 @@ Tüm uygulama tek HTML dosyasında, 3 katman:
   tam ekran katman eklersen id'sini `ustKatmanAcikMi()` listesine EKLE.
 
 ### Sayfa 2+3 — Oyun Ekranı (`#gameOverlay`, `z-index:9999`)
+- `#gameSelect` → **Oyun seçim ekranı** (2026-09 eklendi). `#btnGame` (OYNA) artık
+  doğrudan oyuna değil buraya açılır; her oyun bir karttır (`#cardRhythmChallenge`
+  vb.), karta basınca o oyunun `pickXxx()` fonksiyonu çağrılır ve `wShowPanel()` ile
+  ilgili `gameStart` paneline geçilir. Şu an tek kart var (Rhythm Challenge). **Yeni
+  oyun eklerken:** (1) `#gameSelect` içine yeni bir kart `<button>` ekle, (2) o
+  oyunun kendi `gameStart`/`gamePlaying`/`gameWin` panellerini ekle, (3) `wShowPanel`
+  içindeki gizlenecek panel listesine yeni panel id'lerini ekle, (4) kartın kendi
+  `pickXxx()` fonksiyonunu yaz (bkz. `pickRhythmChallenge()` — ilgili sesi/inputu
+  sıfırlar, `preDecodeAudio()` gibi oyuna özel hazırlığı yapar). Bu ekran
+  `gameOverlay`'in İÇİNDE olduğu için `ustKatmanAcikMi()` listesine ayrıca eklemeye
+  gerek YOK — üst katman zaten `gameOverlay` id'siyle takip ediliyor.
+  Oyunun kendi `gameStart` ekranındaki "GERİ DÖN" artık `closeGame()`'e değil
+  `#gameSelect`'e döner (banner'a dönmek için `#gameSelect`'in kendi "GERİ DÖN"'ü
+  kullanılır) — tek oyunken fark etmiyordu, birden fazla oyunla kullanıcı önce
+  seçim ekranına dönmeli.
 - `#gameStart` → İsim girişi, ödül listesi, BAŞLA butonu
 - `#gamePlay` → Oyun alanı (aktif vuruş)
 - `#gameWin` → Sonuç ve ödül gösterimi

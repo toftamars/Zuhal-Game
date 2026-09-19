@@ -137,6 +137,19 @@ body{font-family:'Bebas Neue',sans-serif;}
     <img id="overlayLogo" src="zuhal-fifty-year-black.jpg" alt="Zuhal Müzik 50. Yıl" style="height:var(--logobar-img);width:auto;object-fit:contain;display:block;pointer-events:auto;cursor:default;filter:invert(1);" />
   </div>
 
+  <!-- OYUN SEÇ — kiosk tek oyunla başladı, ileride başka oyunlar bu ekrana kart olarak eklenecek. -->
+  <div id="gameSelect" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:clamp(16px,3vh,32px);padding:var(--page-top) clamp(20px,4vw,48px) clamp(20px,4vh,48px);box-sizing:border-box;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+    <div style="font-family:'Oddee','Space Mono',monospace;font-size:32px;font-weight:700;color:#FFD700;letter-spacing:4px;">OYUN SEÇ</div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;width:100%;max-width:640px;">
+      <button id="cardRhythmChallenge" aria-label="Rhythm Challenge oyununu seç" style="width:260px;background:#111;border:2px solid #FFD700;color:#fff;font-family:'Space Mono',monospace;cursor:pointer;touch-action:manipulation;padding:24px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <span style="font-size:40px;">🥁</span>
+        <span style="font-size:16px;font-weight:700;letter-spacing:3px;color:#FFD700;">RHYTHM<br/>CHALLENGE</span>
+        <span style="font-size:9px;color:#aaa;letter-spacing:1px;">Whitney Houston — tom vuruşu</span>
+      </button>
+    </div>
+    <button id="btnGameSelectBack" aria-label="Ana Sayfaya Dön" style="background:transparent;color:#555;border:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;cursor:pointer;padding:10px;">← GERİ DÖN</button>
+  </div>
+
   <!-- BAŞLANGIÇ -->
   <!-- justify-content:safe center — düz "center" içerik taşınca üst kısmı
        kaydırılamaz hale getirip logonun altına gömüyordu. -->
@@ -593,7 +606,7 @@ function stopBannerAudio() {
 var wDecodePending = false;
 
 // Whitney Houston MP3
-var WHITNEY_MP3_URL = "whitney-halftime.mp3";
+var WHITNEY_MP3_URL = "games/rhythm-challenge/whitney-halftime.mp3";
 var wArrayBufferPromise = null;
 
 function fetchWhitneyArrayBuffer() {
@@ -698,7 +711,7 @@ function makeCode(prizeCode) {
 }
 
 function wShowPanel(id) {
-  ["gameStart","gamePlaying","gameWin"].forEach(function(p) {
+  ["gameSelect","gameStart","gamePlaying","gameWin"].forEach(function(p) {
     var el = document.getElementById(p);
     if (el) el.style.display = "none";
   });
@@ -755,6 +768,13 @@ function openGameOverlay() {
   // Banner sesini durdur
   if (typeof stopBannerAudio === 'function') stopBannerAudio();
 
+  document.getElementById("gameOverlay").style.display = "block";
+  wShowPanel("gameSelect");
+}
+
+// Oyun seçim ekranından "RHYTHM CHALLENGE" kartına basınca çağrılır.
+// Yeni bir oyun eklendiğinde her kart kendi pickXxx() fonksiyonuna bağlanır.
+function pickRhythmChallenge() {
   stopWAudio();
   clearTimeout(missTimerW);
   clearInterval(progressTimerW);
@@ -763,7 +783,6 @@ function openGameOverlay() {
   playerName = "";
   var ni = document.getElementById("playerNameInput");
   if (ni) ni.value = "";
-  document.getElementById("gameOverlay").style.display = "block";
   wShowPanel("gameStart");
   preDecodeAudio();
 }
@@ -2517,7 +2536,9 @@ document.addEventListener("DOMContentLoaded", function() {
   bindTap(logoEl, onLogoTap);
   bindTap(document.getElementById("btnBasla"), startWhitneyGame);
 
-  addBtn("btnGeri",  closeGame);
+  addBtn("btnGeri",  function() { wShowPanel("gameSelect"); });
+  addBtn("btnGameSelectBack", closeGame);
+  addBtn("cardRhythmChallenge", pickRhythmChallenge);
   addBtn("btnTamam", closeGame);
   addBtn("btnTekrarOyna", startGameDirectly);
   addBtn("btnStatsClose", closeStats);
