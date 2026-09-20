@@ -126,40 +126,11 @@ body{font-family:'Bebas Neue',sans-serif;}
 @keyframes ring-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 @keyframes ring-spin-rev{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
 
-/* ── Oyun ekranı (#gamePlaying) — arcade/Pac-Man esintili yenileme (2026-09).
-   Referans: kullanıcının gönderdiği arcade duvar mural fotoğrafı (neon labirent
-   çizgileri + renkli nokta ızgarası) ve Pac-Man hayalet ikonları. Vuruş zamanlaması
-   TAMAMEN SES tabanlı (bkz. TOM_HIT_TIME, WIN_PERFECT vb.) — bu görsel öğelerin
-   hiçbiri o hesaba dahil DEĞİL, saf dekor. #btnVur'un tıklama alanı/handler'ı
-   DEĞİŞMEDİ, sadece görünümü hayalet şekline büründü. */
-.arcade-maze-bg{position:absolute;inset:0;z-index:0;pointer-events:none;}
-@keyframes metronome-swing{0%{transform:rotate(-22deg);}50%{transform:rotate(22deg);}100%{transform:rotate(-22deg);}}
-.metronome-arm{
-  position:absolute;top:-6px;left:50%;width:6px;height:64px;
-  background:#ffd23f;border-radius:3px;transform-origin:top center;
-  animation:metronome-swing 1.3s ease-in-out infinite;
-  box-shadow:0 0 10px rgba(255,210,63,0.8);z-index:1;
-}
-.metronome-arm::after{
-  content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);
-  width:16px;height:16px;border-radius:50%;background:#ffd23f;
-  box-shadow:0 0 12px rgba(255,210,63,0.9);
-}
-.ghost-vur{background:transparent;border:none;padding:0;cursor:pointer;touch-action:manipulation;z-index:10;position:relative;transition:transform 0.1s;}
-.ghost-vur:active{transform:scale(0.94);}
-.ghost-dome{
-  width:100%;aspect-ratio:1/0.82;background:#ff6a3d;border-radius:50% 50% 0 0;
-  border:4px solid #000;border-bottom:none;box-sizing:border-box;
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  box-shadow:0 0 22px rgba(255,106,61,0.55);
-}
-.ghost-skirt{
-  width:100%;aspect-ratio:1/0.16;background:#ff6a3d;margin-top:-4px;
-  border-left:4px solid #000;border-right:4px solid #000;box-sizing:border-box;
-  clip-path:polygon(0 0,10% 100%,20% 0,30% 100%,40% 0,50% 100%,60% 0,70% 100%,80% 0,90% 100%,100% 0);
-}
-.ghost-eye{width:14px;height:18px;background:#fff;border-radius:50%;position:relative;}
-.ghost-eye::after{content:"";position:absolute;width:7px;height:9px;background:#111;border-radius:50%;top:5px;left:5px;}
+/* Not: #gamePlaying için 2026-09'da bir arcade/Pac-Man yenilemesi denendi
+   (neon labirent arka planı + hayalet şekilli #btnVur) — kullanıcı bu sayfada
+   HİÇBİR ZAMAN değişiklik istemediğini belirtip orijinal düz halka + 🥁 emoji
+   haline geri döndürülmesini istedi. O denemenin kodu git geçmişinde duruyor
+   (bkz. commit 375c57f), burada tekrar EKLEME. */
 
 /* ── #gamePromo — video+şerit versiyonuna GERİ DÖNÜLDÜ (2026-09). Neon labirent +
    tom SVG sahnesi denenmişti (bkz. git commit 375c57f, "Tasarım 1" diye etiketli),
@@ -269,44 +240,23 @@ body{font-family:'Bebas Neue',sans-serif;}
   </div>
 
   <!-- OYNUYOR -->
-  <div id="gamePlaying" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;position:relative;overflow:hidden;">
-    <svg class="arcade-maze-bg" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <rect width="400" height="700" fill="#0a0a0a"/>
-      <g opacity="0.4">
-        <circle cx="30" cy="34" r="6" fill="#3fd1ff"/><circle cx="70" cy="34" r="6" fill="#ff5c5c"/><circle cx="110" cy="34" r="6" fill="#ffd23f"/>
-        <circle cx="150" cy="34" r="6" fill="#3fd1ff"/><circle cx="190" cy="34" r="6" fill="#ff5c5c"/><circle cx="230" cy="34" r="6" fill="#ffd23f"/>
-        <circle cx="270" cy="34" r="6" fill="#3fd1ff"/><circle cx="310" cy="34" r="6" fill="#ff5c5c"/><circle cx="350" cy="34" r="6" fill="#ffd23f"/>
-        <circle cx="30" cy="64" r="6" fill="#ff5c5c"/><circle cx="70" cy="64" r="6" fill="#ffd23f"/><circle cx="110" cy="64" r="6" fill="#3fd1ff"/>
-        <circle cx="150" cy="64" r="6" fill="#ff5c5c"/><circle cx="190" cy="64" r="6" fill="#ffd23f"/><circle cx="230" cy="64" r="6" fill="#3fd1ff"/>
-        <circle cx="270" cy="64" r="6" fill="#ff5c5c"/><circle cx="310" cy="64" r="6" fill="#ffd23f"/><circle cx="350" cy="64" r="6" fill="#3fd1ff"/>
-      </g>
-      <g fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5">
-        <path d="M20 150 H140 V220 H260 V300 H60 V380 H380" stroke="#ffd23f" stroke-width="10"/>
-        <path d="M380 150 H240 V260 H100 V340 H340 V420" stroke="#3fd1ff" stroke-width="10"/>
-        <path d="M20 480 H180 V560 H340 V640 H120" stroke="#ff5c5c" stroke-width="10"/>
-      </g>
-    </svg>
-    <div id="gameStatusTxt" style="position:relative;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#ccc;">YÜKLENIYOR...</div>
+  <div id="gamePlaying" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;">
+    <div id="gameStatusTxt" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#888;">YÜKLENIYOR...</div>
     <div style="position:relative;width:clamp(240px,32vmin,340px);height:clamp(240px,32vmin,340px);display:flex;align-items:center;justify-content:center;">
-      <div style="position:absolute;width:clamp(240px,32vmin,340px);height:clamp(240px,32vmin,340px);border-radius:50%;border:2px dashed #3fd1ff;opacity:0.6;animation:ring-spin 4s linear infinite;"></div>
-      <div style="position:absolute;width:clamp(200px,27vmin,290px);height:clamp(200px,27vmin,290px);border-radius:50%;border:2px solid #ff5c5c;opacity:0.5;animation:ring-spin-rev 3s linear infinite;"></div>
-      <div style="position:absolute;width:clamp(225px,30vmin,320px);height:clamp(225px,30vmin,320px);border-radius:50%;border:4px solid transparent;border-top:4px solid #ffd23f;animation:ring-spin 0.6s linear infinite;"></div>
-      <div class="metronome-arm"></div>
-      <button id="btnVur" class="ghost-vur" aria-label="Vuruş Yap" style="width:clamp(150px,20vmin,210px);">
-        <div class="ghost-dome" style="pointer-events:none;">
-          <span class="ghost-eye" aria-hidden="true"></span>
-          <span class="ghost-eye" aria-hidden="true"></span>
-        </div>
-        <div class="ghost-skirt" style="pointer-events:none;"></div>
-        <span style="display:block;margin-top:6px;font-size:10px;color:#ffd23f;letter-spacing:2px;font-family:'Space Mono',monospace;pointer-events:none;">VURUŞ</span>
+      <div style="position:absolute;width:clamp(240px,32vmin,340px);height:clamp(240px,32vmin,340px);border-radius:50%;border:2px dashed #222;animation:ring-spin 4s linear infinite;"></div>
+      <div style="position:absolute;width:clamp(200px,27vmin,290px);height:clamp(200px,27vmin,290px);border-radius:50%;border:2px solid #1a1a1a;animation:ring-spin-rev 3s linear infinite;"></div>
+      <div style="position:absolute;width:clamp(225px,30vmin,320px);height:clamp(225px,30vmin,320px);border-radius:50%;border:4px solid transparent;border-top:4px solid #FFD700;animation:ring-spin 0.6s linear infinite;"></div>
+      <button id="btnVur" aria-label="Vuruş Yap" style="width:clamp(150px,20vmin,210px);height:clamp(150px,20vmin,210px);border-radius:50%;background:#111;border:4px solid #333;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:10;position:relative;transition:transform 0.1s,background 0.1s;">
+        <span style="font-size:clamp(40px,6vmin,64px);line-height:1;pointer-events:none;">🥁</span>
+        <span style="font-size:10px;color:#555;letter-spacing:2px;font-family:'Space Mono',monospace;pointer-events:none;">VURUŞ</span>
       </button>
     </div>
-    <div style="position:relative;width:clamp(240px,32vmin,340px);">
+    <div style="width:clamp(240px,32vmin,340px);">
       <div style="background:#111;height:3px;border-radius:2px;overflow:hidden;">
-        <div id="progressBar" style="background:#ffd23f;height:100%;width:0%;transition:width 0.05s linear;"></div>
+        <div id="progressBar" style="background:#FFD700;height:100%;width:0%;transition:width 0.05s linear;"></div>
       </div>
     </div>
-    <div id="midiStatus" style="position:relative;font-family:'Space Mono',monospace;font-size:9px;color:#888;letter-spacing:2px;">MIDI bağlı değil</div>
+    <div id="midiStatus" style="font-family:'Space Mono',monospace;font-size:9px;color:#444;letter-spacing:2px;">MIDI bağlı değil</div>
   </div>
 
   <!-- KAZANDIN -->
