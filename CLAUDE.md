@@ -140,34 +140,55 @@ Tüm uygulama tek HTML dosyasında, 3 katman:
   aşağıda) — oraya girince otomatik başlar.
 
 ### Sayfa 2+3 — Oyun Ekranı (`#gameOverlay`, `z-index:9999`)
-- `#gamePromo` → **Seçilen oyunun KENDİ ana sayfası.** Ana sayfadaki kutuya basınca
-  çağrılan `pickXxx()` fonksiyonu (örn. `pickRhythmChallenge()`) `gameOverlay`'i açar,
-  `startBannerAudio()` ile `zuhal-muzik.wav`'ı BAŞLATIR (kalıcı ana sayfada değil,
-  müzik SADECE burada var) ve bu paneli gösterir; `games/<oyun-adi>/` altındaki
-  tanıtım videosunu `currentTime=0` ile baştan oynatır. Ekrana dokununca (butonlar
-  hariç) müzik `bindTap` ile aç/kapa yapılabilir — elle `touchstart`/`click`
-  dallanması DENENDİ ve sahada "dokununca susmuyor" hatası verdi, `bindTap`
-  (butonlarda zaten kanıtlanmış) kullanılınca düzeldi; yeni bir dokunuş dinleyicisi
-  eklerken hep `bindTap` kullan, elle dallanma YAZMA. Panel gizlenirken
-  (`btnPromoBack`, `enterRhythmChallenge()`, `closeGame()`) hem video hem müzik
-  durur ki arka planda gereksiz çalmasın. **Kayan Akademi şeritleri BİLEREK burada
-  var** — ana sayfada yok (kullanıcı kararı: reklam şeridi kalıcı girişte değil,
-  oyuna özel ekranda kalsın). Kendi "▶ OYNA" (`btnPromoEnter` → `enterRhythmChallenge()`)
+- `#gamePromo` → **Seçilen oyunun KENDİ ana sayfası — arcade/metronom sahnesi**
+  (2026-09, kullanıcıyla `mcp__visualize` mockup'ları üzerinden onaylana onaylana
+  tasarlandı, sonra koda geçirildi). Eski `Genel-Halftime-v3.mp4` videosu
+  TAMAMEN KALDIRILDI (dosya hâlâ `games/rhythm-challenge/` altında duruyor,
+  artık hiçbir yerden referans verilmiyor) — yerine tek bir inline `<svg>` geldi:
+  neon labirent çizgileri + nokta ızgarası (dekor), "RHYTHM CHALLENGE" başlığı
+  (50. yıl logosu denendi, kullanıcı "kaldıralım" dedi — bu ekrana logo EKLEME,
+  onay sürecinde geri alındı), geniş tek renkli (sarı) bir gösterge yayı + küçük 3 renkli gösterge çubukları,
+  ve ortada bir "tom" (davul): krem renkli deri, turuncu gövde, iki göz + gülümseme.
+  **Metronom kolu ile davul BİLEREK AYRI iki animasyon grubu** (`.promo-arm-swing`
+  taban `transform-origin` SABİT noktada döner; `.promo-drum-swing` kendi içinde
+  `translateX` ile kayar) — birleştirilirse kolun tabanı da davulla kayıyordu,
+  istenmedi. Kendi logosu olduğu için `#overlayLogoBar` bu panelde `wShowPanel()`
+  tarafından gizlenir (çift logo olmasın diye). **Kayan Akademi şeritleri hem
+  burada hem ana sayfada YOK** — denendi (önce burada, sonra ikisinde birden),
+  kullanıcı kalabalık buldu, kaldırıldı; tekrar denemeden önce bu geçmişe bak.
+  `pickRhythmChallenge()` `gameOverlay`'i açar, `startBannerAudio()` ile
+  `zuhal-muzik.wav`'ı BAŞLATIR (müzik SADECE bu ekranda var, ana sayfa sessiz) ve
+  paneli gösterir. Ekrana dokununca (butonlar hariç) müzik `bindTap` ile aç/kapa
+  yapılabilir — elle `touchstart`/`click` dallanması DENENDİ ve sahada "dokununca
+  susmuyor" hatası verdi, `bindTap` (butonlarda zaten kanıtlanmış) kullanılınca
+  düzeldi; yeni bir dokunuş dinleyicisi eklerken hep `bindTap` kullan, elle
+  dallanma YAZMA. Kendi "▶ OYNA" (`btnPromoEnter` → `enterRhythmChallenge()`)
   butonu asıl oyuna (`#gameStart`) geçer, orada isim girişi + `preDecodeAudio()`
-  çalışır (müzik burada da kesilir); "← OYUNLAR" (`btnPromoBack`) `closeGame()` ile
-  ana sayfaya döner (müzik durur, yeniden BAŞLAMAZ — ana sayfa sessiz). **Yeni oyun
-  eklerken:** oyunun kendi tanıtımı/videosu/müziği varsa aynı desenle (`#gamePromo`
-  yerine kendi id'si) bir ara ekran ekle — yoksa kutu doğrudan kendi `gameStart`'ına
+  çalışır (müzik burada kesilir); "← OYUNLAR" (`btnPromoBack`) `closeGame()` ile
+  ana sayfaya döner (müzik durur, yeniden BAŞLAMAZ). **Yeni oyun eklerken:**
+  oyunun kendi tanıtımı/görseli/müziği varsa aynı desenle (`#gamePromo` yerine
+  kendi id'si) bir ara ekran ekle — yoksa kutu doğrudan kendi `gameStart`'ına
   geçebilir.
   `gameStart`'taki "GERİ DÖN" **ve** `gameWin`'deki "TAMAM" ikisi de `closeGame()`'e
   değil ortak `backToGamePromo()` fonksiyonuna bağlı (`wShowPanel("gamePromo")` +
-  `video.play()` + `startBannerAudio()`) — oyun bitip hediye gösterildikten sonra
-  Zuhal Game hub'ına değil, oyunun kendi ana sayfasına dönülür (kullanıcı kararı:
-  müşteri tekrar oynamak isteyebilir, hub'a gitmesi gereksiz ekstra adım). Hub'a
-  dönmek isteyen `#gamePromo`'daki "← OYUNLAR"a (`btnPromoBack` → `closeGame()`)
-  basmalı. Akış: ana sayfa → tanıtım → isim girişi → oyun → sonuç → (TAMAM) → tanıtım.
+  `startBannerAudio()`) — oyun bitip hediye gösterildikten sonra Zuhal Game
+  hub'ına değil, oyunun kendi ana sayfasına dönülür (kullanıcı kararı: müşteri
+  tekrar oynamak isteyebilir, hub'a gitmesi gereksiz ekstra adım). Hub'a dönmek
+  isteyen `#gamePromo`'daki "← OYUNLAR"a (`btnPromoBack` → `closeGame()`) basmalı.
+  Akış: ana sayfa → tanıtım (arcade sahne) → isim girişi → oyun → sonuç → (TAMAM) → tanıtım.
 - `#gameStart` → İsim girişi, ödül listesi, BAŞLA butonu
-- `#gamePlay` → Oyun alanı (aktif vuruş)
+- `#gamePlay` → Oyun alanı (aktif vuruş). **Arcade/Pac-Man esintili görsel yenileme**
+  (2026-09, kullanıcının gönderdiği arcade duvar mural fotoğrafı + Pac-Man hayalet
+  referansıyla): `.arcade-maze-bg` (SVG, renkli nokta ızgarası + neon labirent
+  çizgileri, saf dekor), `.metronome-arm` (üstte sallanan sabit-tempolu ibre,
+  `metronome-swing` animasyonu — GERÇEK vuruş zamanlamasına bağlı DEĞİL, o tamamen
+  sesle ölçülüyor bkz. `TOM_HIT_TIME`), üç renkli halka (mavi/kırmızı/sarı neon,
+  eskiden gri/altındı). `#btnVur` artık `.ghost-vur` sınıfıyla Pac-Man hayaleti
+  şeklinde (`.ghost-dome` + zigzag `.ghost-skirt`, `clip-path` ile) — **tıklama
+  handler'ı ve `id="btnVur"` DEĞİŞMEDİ**, ghost'un iç öğeleri `pointer-events:none`
+  ile işaretli ki dokunuş her zaman butonun kendisine düşsün. `.ghost-skirt` yüksekliği
+  `%` DEĞİL `aspect-ratio` ile veriliyor — `#btnVur`'un explicit height'ı yok, `%`
+  height auto-height ebeveynde 0'a çöküyordu (denendi, kırıldı, düzeltildi).
 - `#gameWin` → Sonuç ve ödül gösterimi — "TAMAM" davranışı yukarıda
 - `#overlayLogoBar` → Zuhal 50. Yıl logosu (tüm oyun sayfalarında sabit, üstte)
 - **Logo çubuğu yüksekliği ile sayfa üst boşluğu tek kaynaktan gelir** (`:root`

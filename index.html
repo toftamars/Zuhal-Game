@@ -66,7 +66,6 @@ body{font-family:'Bebas Neue',sans-serif;}
 .hub-game-name{font-size:16px;font-weight:700;letter-spacing:3px;color:#FFD700;line-height:1.3;}
 
 /* ── Oyun tanıtım ekranı (#gamePromo) — oyunun KENDİ ana sayfası ── */
-.promo-vid{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:0;}
 
 
 /* ── Kayan şeritler — 2026-09'da ana sayfadan kaldırıldı (kalıcı platform
@@ -126,6 +125,53 @@ body{font-family:'Bebas Neue',sans-serif;}
 /* Oyun ekranındaki dönen halkalar */
 @keyframes ring-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 @keyframes ring-spin-rev{from{transform:rotate(0deg);}to{transform:rotate(-360deg);}}
+
+/* ── Oyun ekranı (#gamePlaying) — arcade/Pac-Man esintili yenileme (2026-09).
+   Referans: kullanıcının gönderdiği arcade duvar mural fotoğrafı (neon labirent
+   çizgileri + renkli nokta ızgarası) ve Pac-Man hayalet ikonları. Vuruş zamanlaması
+   TAMAMEN SES tabanlı (bkz. TOM_HIT_TIME, WIN_PERFECT vb.) — bu görsel öğelerin
+   hiçbiri o hesaba dahil DEĞİL, saf dekor. #btnVur'un tıklama alanı/handler'ı
+   DEĞİŞMEDİ, sadece görünümü hayalet şekline büründü. */
+.arcade-maze-bg{position:absolute;inset:0;z-index:0;pointer-events:none;}
+@keyframes metronome-swing{0%{transform:rotate(-22deg);}50%{transform:rotate(22deg);}100%{transform:rotate(-22deg);}}
+.metronome-arm{
+  position:absolute;top:-6px;left:50%;width:6px;height:64px;
+  background:#ffd23f;border-radius:3px;transform-origin:top center;
+  animation:metronome-swing 1.3s ease-in-out infinite;
+  box-shadow:0 0 10px rgba(255,210,63,0.8);z-index:1;
+}
+.metronome-arm::after{
+  content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);
+  width:16px;height:16px;border-radius:50%;background:#ffd23f;
+  box-shadow:0 0 12px rgba(255,210,63,0.9);
+}
+.ghost-vur{background:transparent;border:none;padding:0;cursor:pointer;touch-action:manipulation;z-index:10;position:relative;transition:transform 0.1s;}
+.ghost-vur:active{transform:scale(0.94);}
+.ghost-dome{
+  width:100%;aspect-ratio:1/0.82;background:#ff6a3d;border-radius:50% 50% 0 0;
+  border:4px solid #000;border-bottom:none;box-sizing:border-box;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  box-shadow:0 0 22px rgba(255,106,61,0.55);
+}
+.ghost-skirt{
+  width:100%;aspect-ratio:1/0.16;background:#ff6a3d;margin-top:-4px;
+  border-left:4px solid #000;border-right:4px solid #000;box-sizing:border-box;
+  clip-path:polygon(0 0,10% 100%,20% 0,30% 100%,40% 0,50% 100%,60% 0,70% 100%,80% 0,90% 100%,100% 0);
+}
+.ghost-eye{width:14px;height:18px;background:#fff;border-radius:50%;position:relative;}
+.ghost-eye::after{content:"";position:absolute;width:7px;height:9px;background:#111;border-radius:50%;top:5px;left:5px;}
+
+/* ── #gamePromo — Rhythm Challenge'ın kendi ana sayfası, arcade yenilemesi
+   (2026-09, kullanıcıyla mockup üzerinden birlikte tasarlandı). Eski video
+   (Genel-Halftime-v3.mp4) tamamen KALDIRILDI, yerine bu SVG sahnesi geldi —
+   video dosyası repoda duruyor ama artık hiçbir yerden referans verilmiyor.
+   Metronom kolunun tabanı SABİT (sadece döner), davul (tom) ayrıca kendi
+   içinde sağa-sola kayar — ikisi kasıtlı olarak AYRI gruplar/animasyonlar,
+   birleştirilirse kolun tabanı da davulla kayar (denendi, istenmedi). */
+@keyframes promoDrumX { 0%{transform:translateX(-20px);} 50%{transform:translateX(20px);} 100%{transform:translateX(-20px);} }
+@keyframes promoArmRotate { 0%{transform:rotate(-20deg);} 50%{transform:rotate(20deg);} 100%{transform:rotate(-20deg);} }
+.promo-drum-swing{animation:promoDrumX 1.2s ease-in-out infinite;transform-box:view-box;transform-origin:140px 260px;}
+.promo-arm-swing{animation:promoArmRotate 1.2s ease-in-out infinite;transform-box:view-box;transform-origin:130px 250px;}
 </style>
 </head>
 <body>
@@ -159,20 +205,76 @@ body{font-family:'Bebas Neue',sans-serif;}
     <img id="overlayLogo" src="zuhal-fifty-year-black.jpg" alt="Zuhal Müzik 50. Yıl" style="height:var(--logobar-img);width:auto;object-fit:contain;display:block;pointer-events:auto;cursor:default;filter:invert(1);" />
   </div>
 
-  <!-- OYUN TANITIMI — seçilen oyunun KENDİ ana sayfası. Genel-Halftime-v3.mp4
-       içinde "RHYTHM CHALLENGE" başlığı ve kart grafiği GÖMÜLÜ (video içeriği,
-       DOM metni değil) — bu yüzden burada ayrıca başlık yazılmıyor. Kayan Akademi
-       şeritleri BİLEREK burada var — ana sayfada (.banner) yok: şeritler kalıcı
-       çok-oyunlu girişte değil, oyuna özel ekranda kalsın istendi (2026-09). -->
-  <div id="gamePromo" style="display:none;width:100%;height:100%;position:relative;overflow:hidden;">
-    <video id="promoVidRhythm" class="promo-vid" src="games/rhythm-challenge/Genel-Halftime-v3.mp4" muted loop playsinline webkit-playsinline></video>
+  <!-- OYUN TANITIMI — seçilen oyunun KENDİ ana sayfası. Arcade/metronom sahnesi
+       (2026-09, eski Genel-Halftime-v3.mp4 videosunun yerine geldi — video dosyası
+       hâlâ games/rhythm-challenge/ altında duruyor ama artık kullanılmıyor).
+       50. yıl logosu denendi, kullanıcı kaldırılmasını istedi — bu ekranda logo YOK,
+       #overlayLogoBar da wShowPanel() tarafından bu panelde gizli tutuluyor (eskiden
+       videonun kendi logosuna çift binmesin diyeydi, şimdilik aynı davranış korundu).
+       Kayan Akademi şeritleri
+       BİLEREK burada yok, ana sayfada (.banner) da yok — kullanıcı denedi,
+       kalabalık buldu, kaldırıldı. -->
+  <div id="gamePromo" style="display:none;width:100%;height:100%;position:relative;overflow:hidden;background:#0a0a0a;">
+    <svg class="promo-arcade-bg" viewBox="0 0 280 500" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true">
+      <rect width="280" height="500" fill="#0a0a0a"/>
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5">
+        <path d="M-10 20 H60 V70 H130 V20 H210 V70 H290" stroke="#ffd23f" stroke-width="7"/>
+        <path d="M-10 95 H40 V150 H120 V95 H180 V150 H290" stroke="#3fd1ff" stroke-width="7"/>
+        <path d="M-10 175 H70 V225 H160 V175 H230 V225 H290" stroke="#ff5c5c" stroke-width="7"/>
+        <path d="M-10 320 H50 V370 H130 V320 H210 V370 H290" stroke="#3fd1ff" stroke-width="7"/>
+        <path d="M-10 395 H90 V440 H190 V395 H250 V440 H290" stroke="#ffd23f" stroke-width="7"/>
+        <path d="M-10 465 H100 V490 H220 V465 H290" stroke="#ff5c5c" stroke-width="7"/>
+        <path d="M20 320 V395" stroke="#ff5c5c" stroke-width="7"/>
+        <path d="M260 370 V440" stroke="#3fd1ff" stroke-width="7"/>
+      </g>
+      <g opacity="0.5">
+        <circle cx="15" cy="340" r="4.5" fill="#ff5c5c"/><circle cx="40" cy="365" r="4.5" fill="#3fd1ff"/><circle cx="230" cy="340" r="4.5" fill="#ffd23f"/>
+        <circle cx="255" cy="365" r="4.5" fill="#ff5c5c"/><circle cx="15" cy="410" r="4.5" fill="#ffd23f"/><circle cx="260" cy="410" r="4.5" fill="#3fd1ff"/>
+        <circle cx="12" cy="470" r="4.5" fill="#ff5c5c"/><circle cx="268" cy="470" r="4.5" fill="#ffd23f"/>
+      </g>
+      <g opacity="0.22">
+        <path d="M172 260 A30 40 0 0 1 232 260 Z" fill="#3fd1ff"/>
+        <polygon points="172,260 178,271 184,260 190,271 196,260 202,271 208,260 214,271 220,260 226,271 232,260" fill="#3fd1ff"/>
+      </g>
 
-    <div class="vs vs-l"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-    <div class="vs vs-r"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-    <div class="hs hs-t"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
-    <div class="hs hs-b"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+      <text x="140" y="102" text-anchor="middle" font-family="'Space Mono',monospace" font-size="30" font-weight="900" fill="#ffd23f" style="letter-spacing:2px">RHYTHM</text>
+      <text x="140" y="134" text-anchor="middle" font-family="'Space Mono',monospace" font-size="30" font-weight="900" fill="#ffd23f" style="letter-spacing:2px">CHALLENGE</text>
 
-    <button id="btnPromoBack" aria-label="Ana sayfaya dön" style="position:absolute;top:calc(6.9vw + 10px);left:16px;z-index:10;background:#000;border:1px solid rgba(255,255,255,0.4);color:#fff;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;touch-action:manipulation;padding:10px 16px;box-shadow:0 2px 10px rgba(0,0,0,0.6);">← OYUNLAR</button>
+      <g>
+        <path d="M48.08 202.64 A100 100 0 0 1 211.92 202.64" fill="none" stroke="#ffd23f" stroke-width="7" stroke-linecap="round"/>
+        <g stroke-linecap="round">
+          <line x1="41.53" y1="198.05" x2="33.33" y2="192.32" stroke="#ffd23f" stroke-width="3"/>
+          <line x1="58.74" y1="178.85" x2="52.14" y2="171.33" stroke="#ffd23f" stroke-width="3"/>
+          <line x1="80.14" y1="164.20" x2="75.52" y2="155.33" stroke="#ffd23f" stroke-width="3"/>
+          <line x1="104.33" y1="155.09" x2="101.95" y2="145.37" stroke="#3fd1ff" stroke-width="3"/>
+          <line x1="130" y1="152" x2="130" y2="142" stroke="#3fd1ff" stroke-width="3"/>
+          <line x1="155.67" y1="155.09" x2="158.05" y2="145.37" stroke="#3fd1ff" stroke-width="3"/>
+          <line x1="179.86" y1="164.20" x2="184.48" y2="155.33" stroke="#ff5c5c" stroke-width="3"/>
+          <line x1="201.26" y1="178.85" x2="207.86" y2="171.33" stroke="#ff5c5c" stroke-width="3"/>
+          <line x1="218.47" y1="198.05" x2="226.67" y2="192.32" stroke="#ff5c5c" stroke-width="3"/>
+        </g>
+
+        <g class="promo-arm-swing">
+          <line x1="130" y1="250" x2="130" y2="155" stroke="#ffd23f" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="130" cy="155" r="7" fill="#ffd23f"/>
+        </g>
+
+        <g class="promo-drum-swing">
+          <ellipse cx="140" cy="336" rx="60" ry="14" fill="#d9531c" stroke="#000" stroke-width="3"/>
+          <rect x="80" y="272" width="120" height="64" fill="#ff6a3d" stroke="#000" stroke-width="3"/>
+          <line x1="94" y1="276" x2="94" y2="332" stroke="#00000055" stroke-width="2"/>
+          <line x1="122" y1="278" x2="122" y2="334" stroke="#00000055" stroke-width="2"/>
+          <line x1="158" y1="278" x2="158" y2="334" stroke="#00000055" stroke-width="2"/>
+          <line x1="186" y1="276" x2="186" y2="332" stroke="#00000055" stroke-width="2"/>
+          <ellipse cx="140" cy="272" rx="60" ry="17" fill="#fff3d0" stroke="#000" stroke-width="3"/>
+          <circle cx="118" cy="298" r="9" fill="#fff"/><circle cx="120" cy="300" r="4.5" fill="#111"/>
+          <circle cx="162" cy="298" r="9" fill="#fff"/><circle cx="164" cy="300" r="4.5" fill="#111"/>
+          <path d="M117 316 Q140 330 163 316" stroke="#000" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </g>
+      </g>
+    </svg>
+
+    <button id="btnPromoBack" aria-label="Ana sayfaya dön" style="position:absolute;top:calc(10px + env(safe-area-inset-top,0px));left:16px;z-index:10;background:#000;border:1px solid rgba(255,255,255,0.4);color:#fff;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;touch-action:manipulation;padding:10px 16px;box-shadow:0 2px 10px rgba(0,0,0,0.6);">← OYUNLAR</button>
     <button id="btnPromoEnter" aria-label="Rhythm Challenge'a başla" style="position:absolute;bottom:calc(6.9vw + 28px);bottom:calc(6.9vw + 28px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:10;padding:16px 80px;background:#FFD700;color:#000;border:3px solid #000;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 24px rgba(0,0,0,0.5);white-space:nowrap;">▶ OYNA</button>
   </div>
 
@@ -223,23 +325,44 @@ body{font-family:'Bebas Neue',sans-serif;}
   </div>
 
   <!-- OYNUYOR -->
-  <div id="gamePlaying" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;">
-    <div id="gameStatusTxt" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#888;">YÜKLENIYOR...</div>
+  <div id="gamePlaying" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;position:relative;overflow:hidden;">
+    <svg class="arcade-maze-bg" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="400" height="700" fill="#0a0a0a"/>
+      <g opacity="0.4">
+        <circle cx="30" cy="34" r="6" fill="#3fd1ff"/><circle cx="70" cy="34" r="6" fill="#ff5c5c"/><circle cx="110" cy="34" r="6" fill="#ffd23f"/>
+        <circle cx="150" cy="34" r="6" fill="#3fd1ff"/><circle cx="190" cy="34" r="6" fill="#ff5c5c"/><circle cx="230" cy="34" r="6" fill="#ffd23f"/>
+        <circle cx="270" cy="34" r="6" fill="#3fd1ff"/><circle cx="310" cy="34" r="6" fill="#ff5c5c"/><circle cx="350" cy="34" r="6" fill="#ffd23f"/>
+        <circle cx="30" cy="64" r="6" fill="#ff5c5c"/><circle cx="70" cy="64" r="6" fill="#ffd23f"/><circle cx="110" cy="64" r="6" fill="#3fd1ff"/>
+        <circle cx="150" cy="64" r="6" fill="#ff5c5c"/><circle cx="190" cy="64" r="6" fill="#ffd23f"/><circle cx="230" cy="64" r="6" fill="#3fd1ff"/>
+        <circle cx="270" cy="64" r="6" fill="#ff5c5c"/><circle cx="310" cy="64" r="6" fill="#ffd23f"/><circle cx="350" cy="64" r="6" fill="#3fd1ff"/>
+      </g>
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5">
+        <path d="M20 150 H140 V220 H260 V300 H60 V380 H380" stroke="#ffd23f" stroke-width="10"/>
+        <path d="M380 150 H240 V260 H100 V340 H340 V420" stroke="#3fd1ff" stroke-width="10"/>
+        <path d="M20 480 H180 V560 H340 V640 H120" stroke="#ff5c5c" stroke-width="10"/>
+      </g>
+    </svg>
+    <div id="gameStatusTxt" style="position:relative;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#ccc;">YÜKLENIYOR...</div>
     <div style="position:relative;width:clamp(240px,32vmin,340px);height:clamp(240px,32vmin,340px);display:flex;align-items:center;justify-content:center;">
-      <div style="position:absolute;width:clamp(240px,32vmin,340px);height:clamp(240px,32vmin,340px);border-radius:50%;border:2px dashed #222;animation:ring-spin 4s linear infinite;"></div>
-      <div style="position:absolute;width:clamp(200px,27vmin,290px);height:clamp(200px,27vmin,290px);border-radius:50%;border:2px solid #1a1a1a;animation:ring-spin-rev 3s linear infinite;"></div>
-      <div style="position:absolute;width:clamp(225px,30vmin,320px);height:clamp(225px,30vmin,320px);border-radius:50%;border:4px solid transparent;border-top:4px solid #FFD700;animation:ring-spin 0.6s linear infinite;"></div>
-      <button id="btnVur" aria-label="Vuruş Yap" style="width:clamp(150px,20vmin,210px);height:clamp(150px,20vmin,210px);border-radius:50%;background:#111;border:4px solid #333;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:10;position:relative;transition:transform 0.1s,background 0.1s;">
-        <span style="font-size:clamp(40px,6vmin,64px);line-height:1;pointer-events:none;">🥁</span>
-        <span style="font-size:10px;color:#555;letter-spacing:2px;font-family:'Space Mono',monospace;pointer-events:none;">VURUŞ</span>
+      <div style="position:absolute;width:clamp(240px,32vmin,340px);height:clamp(240px,32vmin,340px);border-radius:50%;border:2px dashed #3fd1ff;opacity:0.6;animation:ring-spin 4s linear infinite;"></div>
+      <div style="position:absolute;width:clamp(200px,27vmin,290px);height:clamp(200px,27vmin,290px);border-radius:50%;border:2px solid #ff5c5c;opacity:0.5;animation:ring-spin-rev 3s linear infinite;"></div>
+      <div style="position:absolute;width:clamp(225px,30vmin,320px);height:clamp(225px,30vmin,320px);border-radius:50%;border:4px solid transparent;border-top:4px solid #ffd23f;animation:ring-spin 0.6s linear infinite;"></div>
+      <div class="metronome-arm"></div>
+      <button id="btnVur" class="ghost-vur" aria-label="Vuruş Yap" style="width:clamp(150px,20vmin,210px);">
+        <div class="ghost-dome" style="pointer-events:none;">
+          <span class="ghost-eye" aria-hidden="true"></span>
+          <span class="ghost-eye" aria-hidden="true"></span>
+        </div>
+        <div class="ghost-skirt" style="pointer-events:none;"></div>
+        <span style="display:block;margin-top:6px;font-size:10px;color:#ffd23f;letter-spacing:2px;font-family:'Space Mono',monospace;pointer-events:none;">VURUŞ</span>
       </button>
     </div>
-    <div style="width:clamp(240px,32vmin,340px);">
+    <div style="position:relative;width:clamp(240px,32vmin,340px);">
       <div style="background:#111;height:3px;border-radius:2px;overflow:hidden;">
-        <div id="progressBar" style="background:#FFD700;height:100%;width:0%;transition:width 0.05s linear;"></div>
+        <div id="progressBar" style="background:#ffd23f;height:100%;width:0%;transition:width 0.05s linear;"></div>
       </div>
     </div>
-    <div id="midiStatus" style="font-family:'Space Mono',monospace;font-size:9px;color:#444;letter-spacing:2px;">MIDI bağlı değil</div>
+    <div id="midiStatus" style="position:relative;font-family:'Space Mono',monospace;font-size:9px;color:#888;letter-spacing:2px;">MIDI bağlı değil</div>
   </div>
 
   <!-- KAZANDIN -->
@@ -795,7 +918,7 @@ function stopWAudio() {
 }
 
 // Ana sayfadaki "RHYTHM CHALLENGE" kutusuna basınca çağrılır: overlay'i açar ve
-// oyunun KENDİ ana sayfasını (#gamePromo, tanıtım videosu) gösterir.
+// oyunun KENDİ ana sayfasını (#gamePromo — arcade/metronom sahnesi) gösterir.
 // Yeni bir oyun eklendiğinde her kutu kendi pickXxx() fonksiyonuna bağlanır.
 // Banner müziği (zuhal-muzik.wav) SADECE bu ekranda çalar (2026-09 kararı: Zuhal
 // Game ana sayfası sessiz) — buraya girince otomatik başlar, ekrana dokununca
@@ -804,14 +927,10 @@ function pickRhythmChallenge() {
   document.getElementById("gameOverlay").style.display = "block";
   startBannerAudio();
   wShowPanel("gamePromo");
-  var v = document.getElementById("promoVidRhythm");
-  if (v) { v.currentTime = 0; v.play().catch(function(){}); }
 }
 
 // #gamePromo'daki "▶ OYNA" — asıl oyun akışına (isim girişi) geçer.
 function enterRhythmChallenge() {
-  var v = document.getElementById("promoVidRhythm");
-  if (v) v.pause();
   if (typeof stopBannerAudio === 'function') stopBannerAudio();
   stopWAudio();
   clearTimeout(missTimerW);
@@ -827,8 +946,6 @@ function enterRhythmChallenge() {
 
 function closeGame() {
   document.getElementById("gameOverlay").style.display = "none";
-  var promoV = document.getElementById("promoVidRhythm");
-  if (promoV) promoV.pause();
   // Ana sayfa (.banner) sessiz olmalı — müzik buraya dönerken KESİLİR, yeniden
   // BAŞLATILMAZ (eskiden 400ms sonra otomatik başlıyordu, artık ana sayfada müzik yok).
   if (typeof stopBannerAudio === 'function') stopBannerAudio();
@@ -2585,8 +2702,6 @@ document.addEventListener("DOMContentLoaded", function() {
     clearInterval(progressTimerW);
     gameRunning = false;
     wShowPanel("gamePromo");
-    var v = document.getElementById("promoVidRhythm");
-    if (v) v.play().catch(function(){});
     startBannerAudio();
   }
   addBtn("btnGeri",  backToGamePromo);
@@ -2594,11 +2709,7 @@ document.addEventListener("DOMContentLoaded", function() {
     unlockAC();
     pickRhythmChallenge();
   });
-  addBtn("btnPromoBack", function() {
-    var v = document.getElementById("promoVidRhythm");
-    if (v) v.pause();
-    closeGame();
-  });
+  addBtn("btnPromoBack", closeGame);
   addBtn("btnPromoEnter", enterRhythmChallenge);
   addBtn("btnTamam", backToGamePromo);
   addBtn("btnTekrarOyna", startGameDirectly);
