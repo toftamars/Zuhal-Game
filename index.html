@@ -3074,9 +3074,9 @@ function playMelodyNote(noteNum, duration) {
   osc.connect(gain);
   gain.connect(ctx.destination);
   osc.frequency.value = note.freq;
-  osc.type = "sine";
-  gain.gain.setValueAtTime(0.3, now);
-  gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+  osc.type = "triangle";  // Sine yerine triangle - daha piyano benzeri
+  gain.gain.setValueAtTime(0.8, now);  // 0.3 → 0.8 (çok daha sesli)
+  gain.gain.exponentialRampToValueAtTime(0.05, now + duration);
   osc.start(now);
   osc.stop(now + duration);
 }
