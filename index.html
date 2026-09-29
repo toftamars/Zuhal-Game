@@ -3205,7 +3205,7 @@ document.querySelectorAll(".melody-pad").forEach(function(pad) {
 });
 
 document.getElementById("cardMelodyChallenge")?.addEventListener("click", function() {
-  openGameOverlay();
+  document.getElementById("gameOverlay").style.display = "block";
   wShowPanel("gamePromoMelody");
   var vid = document.getElementById("promoVidMelody");
   if (vid) {
