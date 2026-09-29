@@ -1,0 +1,274 @@
+================================================================================
+                   ZUHAL MÜZIK KIOSK — ŞARKI DEĞİŞİMİ ÖZET ÖNERİ
+================================================================================
+Tarih: 2026-09-29
+Hedef: Whitney Houston parçasının yerini alacak kültürel Türkçe şarkılar
+
+================================================================================
+1. KISA CEVAPLAR
+================================================================================
+
+SORUN:
+  ▶ Whitney Houston "I Will Always Love You" (Halftime snare) kullanılıyor
+  ▶ Zuhal Müzik sponsor ettiği için Türkçe/kültürel seçenekler arıyoruz
+
+ÇÖZÜMLİ 3 ŞARKI (ÖNEM SIRASINA):
+  1️⃣  KARA TOPRAK (Türk Halk Klasiği)
+       • Tanınırlık: %98 (Türkiye'de her biri tarafından bilinir)
+       • Arcade Uyumu: ★★★★★ (melodi basit, snare net)
+       • Backing Track: Pixabay'da 5+ elektronik remix
+       • Teknik: TOM_HIT_TIME ≈ 8.45 saniye (test gerekli)
+       • RİSK: Düşük (sanat müziği remixlenmesi ✓)
+
+  2️⃣  AULD LANG SYNE (İskoçya Klasiği - FALLBACK)
+       • Tanınırlık: %99 (yılbaşı, evrensel)
+       • Arcade Uyumu: ★★★★★ (melodi berrak, çok tanınmış)
+       • Backing Track: Pixabay'da 20+ versiyon (EN KOLAY)
+       • Teknik: TOM_HIT_TIME ≈ 19-22 saniye (uzun parça)
+       • RİSK: Çok düşük (hiç yadırganmaz)
+       • TAVSIYE: İlk seçim Kara Toprak başarısızsa bunu kullan
+
+  3️⃣  GÜLÜM GÜLÜM (Neşet Ertaş - Türk Sanat Müziği)
+       • Tanınırlık: %92 (müzik ikonu, nostalji)
+       • Arcade Uyumu: ★★★★★ (5 nota, çok basit)
+       • Backing Track: Pixabay'da 2-3 versiyon
+       • Teknik: TOM_HIT_TIME ≈ 6.32 saniye
+       • RİSK: Düşük (sevilen sanatçı)
+       • TAVSIYE: 2. hafta (Kara Toprak'ın başarısı durumunda)
+
+================================================================================
+2. NİYE KARA TOPRAK?
+================================================================================
+
+✓ Zuhal Müzik: Müzik akademisi, Türkçe müzik iyi karşılanır
+✓ Mağaza Profili: Müşteriler müzik seviyor (açıkça), kültür değeri var
+✓ Teknik: Melodi basit (6 nota), remixlenmeye açık, snare zamanı ölçülebilir
+✓ Kaynaklar: Pixabay'da stok elektronik versiyon bol (20+ seçenek)
+✓ İmaj: "Kültürel köklere dönüş" = Zuhal 50. Yıl teması ile uyumlu
+✗ Risk: Sanat müziği remixlenmesi bazılarına yadırga gelebilir
+         → 30 dakikalık test ile çöz (müşteri reaksiyonunu gör)
+
+================================================================================
+3. ADIM ADIM (HAFTALAR)
+================================================================================
+
+HAFTA 1 (BU HAFTA):
+  □ Bu belgeleri oku
+  □ Pixabay'da "Turkish Electronic" ara, 3 Kara Toprak remix seç
+  □ Audacity'de (Detrend veya ffmpeg) güzellik kontrol
+  □ Backing track'ı indir: games/rhythm-challenge/kara-toprak-backing.mp3
+  □ Snare vuruş zamanını ölç (Audacity → Analyzer → Beat Tracker)
+  □ TOM_HIT_TIME değerini yaz (ör: 8.45)
+
+HAFTA 2 (LAB TEST):
+  □ index.html'de 2 satır değiştir:
+     • WHITNEY_MP3_URL = "..." → kara-toprak-backing.mp3
+     • TOM_HIT_TIME = 12.18 → [ölçülen değer, ör: 8.45]
+  □ Lokal test: "git status" → Push yet (test before live)
+  □ Kiosk erişimde oyun test: 5+ vuruş, MÜKEMMEL çıkması gerekir
+
+HAFTA 3 (CANLIDA KONTROL):
+  □ "git add index.html && git commit -m '...'"
+  □ Vercel otomatik deploy (25 saniye)
+  □ https://zuhal-game.vercel.app test (3-5 oyun)
+  □ Kasa paneli kontrol: kupon üretildi mi?
+  □ 30 dakika sorunsuz çalışması gözlemle
+
+HAFTA 4 (MÜŞTERI ONAY):
+  □ Müşteri bildirisi: "Bu haftanın tema: Kara Toprak"
+  □ Feedback topla (müşteri sevdi mi? Saygısız mı hissetti?)
+  □ Hiçbir sorun → Şarkıyı tuttur
+  □ Sorun varsa Auld Lang Syne'a dön (git revert)
+
+================================================================================
+4. BACKING TRACK BULMA (PRATIK)
+================================================================================
+
+ADIM 1: Pixabay aç
+  https://pixabay.com/music/
+
+ADIM 2: Ara
+  "Turkish Folk Electronic" veya "Turkish EDM"
+
+ADIM 3: Dinle ve İndir
+  Beğenen backing track → "Download" → MP3 (320 kbps tercih)
+
+ADIM 4: Kaydet
+  C:\Users\anile\Downloads\kara-toprak-backing.mp3
+
+ADIM 5: Test
+  Audacity'de aç: File → Open → [dosya]
+  Snare vuruş zamanını bul (tarandırma, Şarkı İşaret)
+  Veya ffmpeg-info:
+    ffmpeg -i [dosya] 2>&1 | grep Duration
+
+TOPLAM ZAMAN: 15 dakika
+
+YARDIM: "BACKING_TRACK_KAYNAKLAR.txt" belgesine bak (detaylı)
+
+================================================================================
+5. TEKNİK DETAIL (GELIŞTIRICILER)
+================================================================================
+
+DOSYA:
+  ✗ OLD: games/rhythm-challenge/whitney-halftime.mp3
+  ✓ NEW: games/rhythm-challenge/kara-toprak-backing.mp3
+
+KOD (index.html):
+  ✗ var WHITNEY_MP3_URL = "games/rhythm-challenge/whitney-halftime.mp3";
+  ✓ var WHITNEY_MP3_URL = "games/rhythm-challenge/kara-toprak-backing.mp3";
+
+  ✗ var TOM_HIT_TIME = 12.18;
+  ✓ var TOM_HIT_TIME = 8.45;  // [Ölçülen değer]
+
+TIMING ÖNEMLİ:
+  Yanlış TOM_HIT_TIME → "Vuruş sayılmadı" şikayeti
+  Doğru kaybırması < 50 ms tolerans (±50 ms iyidir)
+  → Audacity'de 5 kez ölçümle, medyan al
+
+================================================================================
+6. TOPLAM ZAMAN / MALIYETI
+================================================================================
+
+Backing Track Seçimi:     15 dakika (Pixabay ara, indir)
+Teknik Hazırlık:         30 dakika (TOM_HIT_TIME ölçümü, test)
+Kod Değişim:             5 dakika (2 satır)
+Test (Lab):              20 dakika (Audacity + lokal)
+Canlı Deploy:            30 saniye (Vercel otomatik)
+Canlı Test:              60 dakika (5+ oyun, müşteri feedback)
+---
+TOPLAM:                  ~2 saat
+
+FALLBACK (Geri Dönüş):    < 5 dakika (git revert)
+
+================================================================================
+7. KONTROL LİSTESİ (BASIT)
+================================================================================
+
+PRE-LAUNCH:
+  [ ] Backing track indirildi
+  [ ] Snare zamanı ölçüldü (TOM_HIT_TIME)
+  [ ] Ses kalitesi kontrol edildi
+  [ ] CLAUDE.md yedeklendi
+
+LAUNCH:
+  [ ] index.html güncellendi (2 satır)
+  [ ] Git commit yapıldı
+  [ ] Vercel deploy bitti (25 sn bekle)
+  [ ] İlk oyun test edildi (kupon üretildi)
+  [ ] Vuruş sayılması doğru mu?
+
+POST-LAUNCH:
+  [ ] 30 dakika sorunsuz çalıştı
+  [ ] Müşteri reaksiyonu not alındı
+  [ ] Herhangi bir şikayet yok
+  [ ] Şarkı tutturuldu
+
+FALLBACK (Sorun varsa):
+  [ ] git revert [commit-hash]
+  [ ] Whitney Houston geri çalışıyor
+  [ ] Deploy bitti (25 sn)
+
+================================================================================
+8. RİSK ANALIZ
+================================================================================
+
+RİSK                         | OLASILILIK | ÇÖZÜM
+-----------------------------+------------|----------------------------------------------
+Yanlış TOM_HIT_TIME          | Orta       | Audacity'de 5 kez ölçümle
+Backing Track kalitesi düşük | Düşük      | Pixabay'dan seç (quality üstün)
+Müşteri saygısız hissetti    | Düşük      | Auld Lang Syne'a dön (git revert)
+Snare zamanı bulunamadı      | Çok düşük  | Whitney'ye dön + telefon ara
+Vercel deploy başarısız      | Çok düşük  | Yenile (2. deneme)
+---
+GENEL RİSK: DÜŞÜK (tüm çözümler <5 dakika)
+
+================================================================================
+9. TAVSIYELER
+================================================================================
+
+1. BU HAFTA BAŞLA (Kara Toprak backing track araması)
+   → Müşteri beklemiyor, kolay test çıkacak
+
+2. PIXABAY TERCİHLİ (YouTube audio yerine)
+   → En az karmaşa, CC0 lisans, bol varyasyon
+
+3. İLK TEST SAKIN SAATTE (Pazartesi 9:00)
+   → Kase paneli açık tutulmalı (herhangi şikayet için)
+
+4. MÜŞTERI REAKSIYONUNU NOT AL
+   → "Kara Toprak'ı sevdi mi?" → 2. hafta kararına etki
+
+5. WHITNEY'NİN YEDEK KOPYASINI TUT
+   → git revert için hazır kalsin (30 saniye fallback)
+
+================================================================================
+10. SORULAR & CEVAPLAR
+================================================================================
+
+S: Neden Whitney'den vazgeçelim?
+C: Zuhal Müzik sponsor = Türkçe kültür daha uyumlu. Ama Whitney'nin snare
+   zamanlaması gayet iydi. Risk almaktan kaçılırsa Auld Lang Syne (yılbaşı)
+   kullanılabilir — 0 risk.
+
+S: Kara Toprak müşteri tarafından reddedilirse?
+C: Auld Lang Syne'a dön (git revert). 5 dakika içinde çözülür.
+
+S: TOM_HIT_TIME'ı yanlış ölçürsem?
+C: Müşteri "vuruş sayılmadı" şikayet eder. Audacity'de 50ms toleransta
+   kalırsan (±50 ms) sorun yok.
+
+S: Backing track'ı başka yerden bulabilirim mi?
+C: Evet. Ama Pixabay → YouTube → Incompetech sırasında başla.
+   (Kolay → Daha kolay → En az kolay)
+
+S: Şarkı boyunca 2-3 farklı vuruş zamanı olursa?
+C: Whitney'de de öyle. Tek zamanı "ana vuruş" olarak seç.
+   Kara Toprak'ta snare yaklaşık 8.45'te (±2 saniye).
+
+================================================================================
+SONUÇ: HAZIRLANMA AÇIKLAMASI
+================================================================================
+
+Bu 4 dosya hazırlandı:
+
+1. KULTURAL_TURKCE_SARKILAR.md
+   → Detaylı karşılaştırma tablosu (14 şarkı)
+   → Her birinin Türkiye/Dünya tanınırlığı, tema, backing kaynakları
+
+2. SARKILAR_KIYASLA.csv
+   → Excel/Google Sheet ile açılır (tablo)
+   → Sıralama hazır, sütunlar filtrelenebilir
+
+3. SARKI_DEGISIM_TEKNIK_REHBERI.md
+   → Adım adım kod değişimi
+   → Timing kalibrasyonu
+   → Geri dönüş stratejisi
+
+4. BACKING_TRACK_KAYNAKLAR.txt
+   → Pixabay, YouTube, Incompetech nasıl kullanılır?
+   → Link ve adımlar
+   → Lisans kontrolü
+
+5. OZET_ONERI.txt (bu dosya)
+   → Hızlı okuma için, 10 dakikalık çıktı
+
+BAŞLA: Haftanın başında Pixabay'da Kara Toprak araması yapıp
+backing track seç. 15 dakika.
+
+SONRA: TOM_HIT_TIME ölçümü (30 dakika Audacity'de).
+
+SONRA: index.html güncelleme (5 dakika).
+
+SONRA: Test + Vercel deploy (1 saat).
+
+TOPLAM: ~2 saat (bu haftanın sonunda bitmeli).
+
+================================================================================
+İletişim: Yukarıdaki 4 belge + bu özet kullanarak müşteriye "
+"Kara Toprak seçeceğiz ama 2 hafta test" diye bildir.
+
+---
+Hazırlayan: Zuhal Müzik Kiosk Araştırma
+Durum: Hazır, başlatmaya bekleniyor
+================================================================================

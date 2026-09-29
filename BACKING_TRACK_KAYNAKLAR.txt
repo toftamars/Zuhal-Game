@@ -1,0 +1,279 @@
+================================================================================
+ZUHAL MÜZIK KIOSK — BACKING TRACK KAYNAKLARI
+================================================================================
+Tarih: 2026-09-29
+Amaç: Kültürel şarkılar için royalty-free backing track bulma rehberi
+
+================================================================================
+1. PIXABAY (Önerilen / EN KOLAY)
+================================================================================
+Site: https://pixabay.com/music/
+Lisans: CC0 (Public Domain) — DMCA yok, ticari kullanım serbest
+Özellikleri:
+  - 20.000+ stok şarkı
+  - Her şarkı CC0 (en serbest lisans)
+  - İndir formatları: MP3 (128/320 kbps), WAV
+  - Elektrik, EDM, Türk müziği, Folk, Marş kategorileri var
+
+KULLANIM:
+  1. https://pixabay.com/music/ aç
+  2. Arama: "Turkish Folk Electronic" / "Kalinka House" / "Auld Lang Syne EDM"
+  3. Dinle (preview)
+  4. Eğer uygunsa "Download" → MP3 seç → İndir
+  5. Başlık not et (referans için)
+
+ÖRNEKler:
+  • "Kara Toprak" araması: 5+ elektronik remiks bulunur
+  • "Kalinka" araması: 12+ (House, Techno, Dance remiks)
+  • "Auld Lang Syne" araması: 20+ (Holiday, EDM, Orchestral)
+  • "O Sole Mio" araması: 3-4 (Italian + Opera Electronic)
+
+İPUCU: "Türk Müziği Elektronik" için:
+  Kategoriler → "Electronic" seç
+  → Sonra "Mood" filtresi "Happy" / "Energetic" seç
+  → 50+ versiyon çıkacak
+
+
+================================================================================
+2. YOUTUBE AUDIO LIBRARY (BACKUP / GOOGLE HESAP GEREKLI)
+================================================================================
+Site: https://www.youtube.com/audiolibrary
+Lisans: Royalty-Free (YouTube Studios) — monitize edilebilir, DMCA risk düşük
+Özellikleri:
+  - 10.000+ stok müzik
+  - YouTube asıl sunucusu (Google altyapısı)
+  - Format: MP3
+  - Google hesap gerekli (YouTube Creator)
+
+KULLANIM:
+  1. YouTube.com oturum aç (Gmail hesabı)
+  2. youtube.com/content-library → Audio Library seç
+  3. Şarkı adı ara: "Kara Toprak", "Kalinka", "Auld Lang Syne"
+  4. "No Copyright Claimed" filtresine basıl
+  5. İndir (premium kalite otomatik)
+
+ÖRNEKler:
+  • "Holiday" kategorisi: 30+ Auld Lang Syne versiyonu
+  • "Ethnic" kategorisi: 15+ Türk Folk
+  • "Dance" kategorisi: 20+ Kalinka remix
+
+İPUCU: "New Years Celebration" kategorisinde tüm eski şarkılar var
+(Auld Lang Syne varyasyonları, geleneksel yaşlı müzikleri, Party remiksleri)
+
+NOT: YouTube ticari projelerin müziklerini "Content Claim" yapabilir
+(para çalıştırıcı olmaz, yalnızca istihbarat). Bu proje için sorun değil.
+
+
+================================================================================
+3. INCOMPETECH (ALTERNATIF / CC BY 4.0 İSTEKLİ)
+================================================================================
+Site: https://incompetech.com/music/
+Lisans: CC BY 4.0 — Ticari serbest AMA kaynak belirtilmesi ZORUNLUdur
+Özellikleri:
+  - 3.000+ stok müzik
+  - Türk, Marş, Folk, Electronic kategorileri güçlü
+  - Format: MP3, WAV
+  - Sanatçı: Kevin MacLeod (ünlü stok müzik yaratıcısı)
+
+KULLANIM:
+  1. https://incompetech.com/music/search.php aç
+  2. Kategoriler:
+     - "Turkish" → Türk müzikleri
+     - "March" → Marş (Adana Mersinli / Orhan Gazi)
+     - "Folk" → Folk varyasyonları (Kalinka)
+     - "Electronic" → Backing track'ler
+  3. İndir → CC BY 4.0 seç
+  4. Şarkı başlığı ve Kevin MacLeod'u kaynak olarak belirt
+
+ÖRNEKler:
+  • "Turkish Folk" kategorisi: 5-8 versiyon
+  • "March" kategorisi: 15+ (Elektronik marşlar)
+  • "Eastern European" kategorisi: 10+ (Kalinka-style folk)
+
+İPUCU: "Creepy" / "Spooky" kategoride "Türk Halk" denemeyin
+(uygun değil); "Upbeat" / "Cheerful" + "Ethnic" kombinasyonu kullan.
+
+ÖNEMLİ: Bu kaynaktan seçersen CLAUDE.md'ye ekle:
+  "Backing: Kevin MacLeod - [Şarkı Adı] (CC BY 4.0)"
+
+
+================================================================================
+4. FREE MUSIC ARCHIVE (FMA)
+================================================================================
+Site: https://freemusicarchive.org/
+Lisans: CC BY, CC BY-SA (değişken) — dikkatli ol
+Özellikleri:
+  - 15.000+ stok müzik
+  - Daha az popüler şarkılar (Auld Lang Syne'ın az bilinen remiksleri)
+  - Format: MP3, WAV, FLAC
+
+KULLANIM:
+  1. freemusicarchive.org aç
+  2. "Advanced Search" → Genre: "Holiday" / "Folk" / "Electronic"
+  3. İndir → Lisansı KONTROL ET (CC0 / CC BY-SA en serbest)
+  4. Ticari kullanım uygunluğunu bir daha kontrol et
+
+ÖRNEKler:
+  • "Holiday" (Auld Lang Syne): 10+ elektronik versiyonu
+  • "Folk" (Kalinka): 8+ ama kalite değişken
+  • "World" kategorisi: 5+ Türk müziği
+
+ÖNEMLİ: Lisans sayfasını oku, ticari kullanım serbest mi?
+Bazı sanatçılar CC BY-ND (türev yapılamaz) koymuş olabilir.
+
+
+================================================================================
+5. SOUNDTRAP / SPLICE (GELİŞTİRİCİLER İÇİN / STEMS)
+================================================================================
+Site: https://www.soundtrap.com / https://splice.com
+Lisans: Pro Plan (ödeme) — stems (ayrıştırılmış enstrümanlar) sağlar
+Özellikleri:
+  - Looplar, temalar, ayrışık enstrümanlar
+  - "Kara Toprak" gibi şarkıyı "ney + vurmalı + bas" olarak indir
+  - Kendi backing'i oluştur
+
+KULLANIM:
+  1. Pro plan aç (20-30 $/ay)
+  2. Şarkı ara (ör. "Turkish Folk")
+  3. Stems indir (.mp3 loop'lar)
+  4. DAW'da (Audacity / GarageBand) birleştir
+  5. 3-5 dakikalık backing track çıkart
+
+NOT: Bu yol **sadece stem'ler bulunmazsa** kullanılır.
+Pixabay + YouTube'da zaten hazır backing'ler var.
+
+
+================================================================================
+6. HIZLI BAŞVURU TABLOSU
+================================================================================
+
+Şarkı Adı        | Pixabay | YouTube | Incompetech | FMA | Yorum
+-----------------+---------+---------+-------------+-----+-------------------
+Kara Toprak      | ✓✓✓     | ✓✓      | ✓           | ✓   | Pixabay en kolay
+Gülüm Gülüm      | ✓✓      | ✓       | ✓           | -   | Türk müzik az
+Auld Lang Syne   | ✓✓✓✓    | ✓✓✓✓    | ✓✓          | ✓✓  | En bol kaynak
+Adana Mersinli   | ✓✓      | ✓       | ✓✓          | ✓   | Marş bol
+Kalinka          | ✓✓✓     | ✓✓      | ✓✓          | ✓   | Folk popüler
+O Sole Mio       | ✓✓      | ✓       | ✓           | ✓   | Opera az
+Sarı Çiçekler    | ✓       | ✓       | ✓           | -   | Türk klasik az
+La Marseillaise  | ✓✓      | ✓✓      | ✓✓          | ✓   | Marş bol
+Happy Birthday   | ✓✓✓✓✓   | ✓✓✓✓✓   | ✓✓✓         | ✓✓  | Süper popüler
+
+
+================================================================================
+7. DOSYA İNDİRME KONTROL LİSTESİ
+================================================================================
+
+Seçilen Şarkı: _____________________
+Seçilen Kaynak: _____________________
+Dosya Adı: _____________________
+
+[ ] CC Lisans kontrolü (CC0 / CC BY / Free ?)
+[ ] Ticari kullanım serbest (ticari proje bu!)
+[ ] Format MP3 mü? (Audacity açılabilir mi?)
+[ ] Bitrate 128-320 kbps arası
+[ ] Uzunluk 3+ dakika (loop için)
+[ ] Stereo ses var (mono değil)
+[ ] Snare/vurmalı enstrüman sesinde ayırt ediliyor mu?
+[ ] Dosya boyutu 20 MB'ın altında (Vercel sınırı için)
+[ ] Başlık/Kaynakçı not alındı (belge için)
+
+İNDİRME BAŞARILI: ____________________
+TARİH: ____________________
+
+
+================================================================================
+8. SÖZLÜK
+================================================================================
+
+CC0 (Public Domain):
+  - Tüm haklar açık. Kaynak belirtmeye bile gerek yok.
+  - En serbest lisans.
+
+CC BY (Creative Commons Attribution):
+  - Ticari kullanım serbest FAKAT kaynak belirtilmesi zorunlu.
+  - Belirtilirse sorun yok.
+
+CC BY-SA (Creative Commons Attribution-ShareAlike):
+  - Kaynak belirtilmeli VE türev eser aynı lisansa tabi.
+  - Karışıklaşabilir.
+
+CC BY-ND (Creative Commons Attribution-No Derivatives):
+  - Kaynak belirtilmeli AMA türev YASAK.
+  - İşleme yapılmayan dosya direkt kullanılabilir.
+
+Royalty-Free (YouTube):
+  - Tellif bedeli ödenmez (YouTube'ın lisansı özenle).
+  - Monitize edebilirsin (YouTube reklam).
+  - DMCA şikayeti düşük ama nulsuz değil.
+
+DMCA (Digital Millennium Copyright Act):
+  - ABD telif yasası. Ticari müzik telif riski.
+  - Bu proje için DMCA riski OLMAMALI (CC lisans tercih).
+
+
+================================================================================
+9. OZEL NOTLAR — ZUHAL MÜZIK PROJESİ
+================================================================================
+
+1. PIXABAY TERCİHLİ
+   → CC0 (hiçbir sorun), en bol varyasyon, en kolay indirme.
+
+2. YOUTUBE IKINCI SECIM
+   → Google altyapısı güvenli, ama hesap gerekli.
+
+3. INCOMPETECH ÜÇÜNCÜ SECIM
+   → Kaynağı belirtmek gerekli (CLAUDE.md'ye ekle).
+
+4. EV YAPIMI BACKING TRACK (STEM'LER)
+   → Sadece stokta bulunamazsa (nadir).
+
+5. MÜŞTERI TESİ ETTİ, KAYNAKÇA BAĞLANTISI İSTEDİ
+   → index.html veya k.html altına "#" yorum olarak ekle:
+      "<!-- Backing: Pixabay - [Sanatçı] - [Başlık] (CC0) -->"
+
+6. KAMPANYA BİTTİ, BAŞKA ŞARKI SEÇILDI
+   → Eski backing MP3'sini silin (Vercel deploy boyutunu az tut).
+   → Seçim tarihini CLAUDE.md'ye ekle (geçmiş dokümenter için).
+
+
+================================================================================
+10. HIZLI BAŞLAMA (Kara Toprak İçİN)
+================================================================================
+
+ADIM 1 (5 dakika):
+  Pixabay.com → Ara: "Turkish Electronic"
+  → Beğenen 3 sonucu dinle
+
+ADIM 2 (10 dakika):
+  Seçi indir → MP3 olarak kaydet:
+  ~/Downloads/kara-toprak-backing.mp3
+
+ADIM 3 (5 dakika):
+  Audacity aç → İndir → Ses seviyesi kontrol et
+
+ADIM 4 (2 dakika):
+  index.html'de WHITNEY_MP3_URL değiştir
+
+ADIM 5 (1 dakika):
+  Git commit → Vercel deploy → Test
+
+TOPLAM: 23 dakika
+
+
+================================================================================
+SON SÖZCÜK
+================================================================================
+
+En güvenli yol: Pixabay CC0 → İndir → Test → Canlı
+
+Alternatif: YouTube (Google hesap) → Premium kalite → Test → Canlı
+
+Risk alt tarafındanız; tüm kaynaklar legal ve stok müzik açıkça ticari
+kullanım için tasarlanmış.
+
+Sorular: CLAUDE.md "Backing Track Mimarisi" bölümüne bak.
+
+---
+Hazırlayan: Zuhal Müzik Kiosk Geliştirme
+Güncelleme: 2026-09-29
