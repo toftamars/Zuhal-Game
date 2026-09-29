@@ -138,6 +138,21 @@ body{font-family:'Bebas Neue',sans-serif;}
    olduğunu netleştirdi. SVG sahnenin CSS/JS'iburada KALDIRILDI — geri dönmek
    gerekirse o commit'e bak. */
 .promo-vid{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;z-index:0;}
+
+/* ──── MELODY CHALLENGE STILLER ──── */
+.melody-pad{
+  width:100%;aspect-ratio:1;border-radius:50%;background:rgba(51,51,51,0.75);
+  border:2px solid #FFD700;color:#FFD700;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:4px;cursor:pointer;
+  box-shadow:0 0 10px #FFD700;transition:all 0.1s cubic-bezier(0,0,1,1);
+  font-family:'Space Mono',monospace;touch-action:manipulation;font-size:11px;
+}
+.melody-pad:hover{transform:scale(1.1);box-shadow:0 0 20px #FFD700,0 0 40px #FF6B35;}
+.melody-pad.active{background:#00FF00;box-shadow:0 0 30px #00FF00;color:#000;
+  transform:scale(1.15);animation:melody-scale-pulse 0.15s;}
+.melody-pad.error{animation:melody-shake 0.05s 3;box-shadow:0 0 30px #FF0055;}
+@keyframes melody-scale-pulse{0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1.15);}}
+@keyframes melody-shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-2px);}75%{transform:translateX(2px);}}
 </style>
 </head>
 <body>
@@ -159,6 +174,10 @@ body{font-family:'Bebas Neue',sans-serif;}
       <button id="cardRhythmChallenge" class="hub-game-card" aria-label="Rhythm Challenge oyununu seç">
         <span class="hub-game-icon">🥁</span>
         <span class="hub-game-name">RHYTHM<br/>CHALLENGE</span>
+      </button>
+      <button id="cardMelodyChallenge" class="hub-game-card" aria-label="Melodi Oyununu seç">
+        <span class="hub-game-icon">🎵</span>
+        <span class="hub-game-name">MELODI<br/>CHALLENGE</span>
       </button>
     </div>
   </div>
@@ -298,6 +317,127 @@ body{font-family:'Bebas Neue',sans-serif;}
     </div>
     <button id="btnTekrarOyna" aria-label="Tekrar Oyna" style="display:none;padding:clamp(14px,2vh,22px) clamp(50px,8vmin,80px);background:#FFD700;color:#000;border:none;font-family:'Space Mono',monospace;font-size:clamp(12px,1.8vmin,18px);font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;">▶ TEKRAR OYNA</button>
     <button id="btnTamam" aria-label="Kapat" style="padding:clamp(14px,2vh,22px) clamp(50px,8vmin,80px);background:#FFD700;color:#000;border:none;font-family:'Space Mono',monospace;font-size:clamp(12px,1.8vmin,18px);font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;">✓ TAMAM</button>
+  </div>
+
+  <!-- MELODI CHALLENGE PANELLERI -->
+  <!-- Rhythm Challenge gibi: #gamePromo (tanıtım) + #gameStart (ad girişi) +
+       #gamePlaying (oyun) + #gameWin (sonuç). Her panel ID'ye "Melody" eklenir. -->
+
+  <!-- PROMO: Eye of the Tiger tanıtım ekranı (video + akademi şeritleri) -->
+  <div id="gamePromoMelody" style="display:none;width:100%;height:100%;position:relative;overflow:hidden;">
+    <video id="promoVidMelody" class="promo-vid" src="games/melody-challenge/eye-of-the-tiger.mp4" muted loop playsinline webkit-playsinline></video>
+
+    <!-- Kayan Akademi şeritleri (Rhythm Challenge ile aynı) -->
+    <div class="vs vs-l"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+    <div class="vs vs-r"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+    <div class="hs hs-t"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+    <div class="hs hs-b"><div class="hs-i">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
+
+    <button id="btnPromoBackMelody" aria-label="Ana sayfaya dön" style="position:absolute;top:calc(6.9vw + 10px);left:16px;z-index:10;background:#000;border:1px solid rgba(255,255,255,0.4);color:#fff;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;touch-action:manipulation;padding:10px 16px;box-shadow:0 2px 10px rgba(0,0,0,0.6);">← OYUNLAR</button>
+    <button id="btnPromoEnterMelody" aria-label="Melody Challenge'a başla" style="position:absolute;bottom:calc(6.9vw + 28px);bottom:calc(6.9vw + 28px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:10;padding:16px 80px;background:#FFD700;color:#000;border:3px solid #000;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 24px rgba(0,0,0,0.5);white-space:nowrap;">▶ OYNA</button>
+  </div>
+
+  <!-- BAŞLANGIÇ: Ad girişi ve ödül listesi -->
+  <div id="gameStartMelody" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:safe center;gap:clamp(12px,2vh,22px);padding:var(--page-top) clamp(20px,4vw,48px) clamp(20px,4vh,48px);box-sizing:border-box;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+    <div style="font-family:'Oddee','Space Mono',monospace;font-size:48px;font-weight:700;color:#FFD700;letter-spacing:3px;line-height:1.1;">MELODI<br/>CHALLENGE</div>
+    <div style="font-family:'Space Mono',monospace;font-size:10px;color:#aaa;letter-spacing:2px;line-height:2.2;">
+      Eye of the Tiger — Survivor<br/>
+      <span style="color:#FFD700;">8 notayı doğru sırayla çal!</span>
+    </div>
+    <div style="border:1px solid #222;padding:16px 24px;text-align:left;width:100%;max-width:380px;box-sizing:border-box;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#FFD700;letter-spacing:3px;margin-bottom:12px;">KAZANABİLECEKLERİN</div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#ccc;line-height:1;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">🏆</span>
+          <div><div style="color:#fff;letter-spacing:2px;">MÜKEMMEL</div><div style="color:#fff;font-size:9px;margin-top:2px;">Akademi 1 Ay — 4 Ders Hediye</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">🎯</span>
+          <div><div style="color:#fff;letter-spacing:2px;">HARİKA</div><div style="color:#fff;font-size:9px;margin-top:2px;">Akademi Ücretsiz Deneme Dersi</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">🎵</span>
+          <div><div style="color:#fff;letter-spacing:2px;">İYİ</div><div style="color:#fff;font-size:9px;margin-top:2px;">Akademide İlk Ay %50 İndirim</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">🎁</span>
+          <div><div style="color:#fff;letter-spacing:2px;">İDARE EDER</div><div style="color:#fff;font-size:9px;margin-top:2px;">Zuhal Bez Çanta</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">😞</span>
+          <div><div style="color:#666;letter-spacing:2px;">ÇALIŞMAYA DEVAM</div><div style="color:#666;font-size:9px;margin-top:2px;">Hediye yok</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="width:100%;max-width:380px;display:flex;flex-direction:column;gap:8px;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#FFD700;letter-spacing:3px;">AD SOYAD <span style="color:#f66;">*</span></div>
+      <input id="playerNameInputMelody" type="text" maxlength="40" placeholder="Adın Soyadın..." autocomplete="off" autocorrect="off" spellcheck="false"
+        style="width:100%;box-sizing:border-box;background:#111;color:#fff;border:1px solid #444;border-radius:0;-webkit-appearance:none;appearance:none;font-family:'Space Mono',monospace;font-size:16px;letter-spacing:3px;padding:14px 16px;outline:none;text-transform:uppercase;" />
+      <div id="nameErrorMelody" style="font-family:'Space Mono',monospace;font-size:9px;color:#f66;letter-spacing:2px;display:none;"></div>
+    </div>
+    <button id="btnBaşlaMelody" aria-label="Oyunu Başlat" style="padding:clamp(16px,2.5vh,26px) clamp(50px,8vmin,80px);background:#FFD700;color:#000;border:none;font-family:'Space Mono',monospace;font-size:clamp(14px,2vmin,20px);font-weight:700;letter-spacing:5px;cursor:pointer;touch-action:manipulation;">▶ BAŞLA</button>
+    <button id="btnGeriMelody" aria-label="Ana Sayfaya Dön" style="background:transparent;color:#555;border:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;cursor:pointer;padding:10px;">← GERİ DÖN</button>
+  </div>
+
+  <!-- OYNUYOR: 8 nota padi -->
+  <div id="gamePlayingMelody" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;">
+    <div id="gameStatusTxtMelody" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#888;">HAZIR...</div>
+    <div id="melodySequenceDisplay" style="font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;color:#00FFFF;text-shadow:0 0 15px #00FFFF;background:rgba(0,0,0,0.5);padding:12px 20px;border-radius:8px;">① ① ⑤ ③ → ① ① ⑤ ③</div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,clamp(60px,15vw,100px));gap:clamp(8px,2vw,14px);">
+      <button class="melody-pad" data-note="1" data-name="Do" data-midi="60" aria-label="Do">⊙①<br/>Do</button>
+      <button class="melody-pad" data-note="2" data-name="Re" data-midi="62" aria-label="Re">⊙②<br/>Re</button>
+      <button class="melody-pad" data-note="3" data-name="Mi" data-midi="64" aria-label="Mi">⊙③<br/>Mi</button>
+      <button class="melody-pad" data-note="4" data-name="Fa" data-midi="65" aria-label="Fa">⊙④<br/>Fa</button>
+
+      <button class="melody-pad" data-note="5" data-name="Sol" data-midi="67" aria-label="Sol">⊙⑤<br/>Sol</button>
+      <button class="melody-pad" data-note="6" data-name="La" data-midi="69" aria-label="La">⊙⑥<br/>La</button>
+      <button class="melody-pad" data-note="7" data-name="Si" data-midi="71" aria-label="Si">⊙⑦<br/>Si</button>
+      <button class="melody-pad" data-note="8" data-name="Do'" data-midi="72" aria-label="Do'">⊙⑧<br/>Do'</button>
+    </div>
+
+    <div id="melodyStatusBar" style="font-family:'Space Mono',monospace;font-size:10px;color:#00FFFF;text-shadow:0 0 10px #00FFFF;background:rgba(0,0,0,0.5);padding:10px 16px;border-radius:6px;">✓ Doğru: 0/8 | ✕ Hata: 0 | Doğruluk: 0%</div>
+  </div>
+
+  <!-- KAZANDIN: Sonuç ve kupon -->
+  <div id="gameWinMelody" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:safe center;gap:clamp(10px,1.8vh,20px);padding:var(--page-top) clamp(20px,4vw,48px) clamp(20px,4vh,48px);box-sizing:border-box;text-align:center;overflow-y:auto;-webkit-overflow-scrolling:touch;">
+    <div id="winPlayerNameMelody" style="font-family:'Oddee','Space Mono',monospace;font-size:clamp(22px,4vmin,40px);font-weight:700;color:#FFD700;letter-spacing:4px;display:none;"></div>
+    <div id="winEmojiMelody" aria-live="polite" style="font-size:clamp(48px,7vmin,80px);line-height:1;">🎵</div>
+    <div id="winLabelMelody" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:5px;color:#888;"></div>
+    <div id="winTitleMelody" style="font-family:'Oddee','Space Mono',monospace;font-size:clamp(30px,5vmin,52px);font-weight:700;color:#fff;line-height:1.2;"></div>
+    <div id="winDescMelody" style="font-family:'Space Mono',monospace;font-size:10px;color:#888;line-height:2.4;white-space:pre-line;"></div>
+
+    <div id="codeBoxMelody" style="display:none;flex-direction:column;align-items:center;gap:8px;width:100%;">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#FFD700;letter-spacing:4px;">KUPON KODUN</div>
+      <div style="background:#FFD700;color:#000;padding:14px 32px;font-family:'Space Mono',monospace;font-size:20px;font-weight:700;letter-spacing:6px;border:3px solid #fff;" id="prizeCodeMelody"></div>
+      <div id="prizeExpiryMelody" style="font-family:'Space Mono',monospace;font-size:10px;color:#FFD700;letter-spacing:3px;font-weight:700;"></div>
+      <div id="qrBoxMelody" style="display:none;flex-direction:column;align-items:center;gap:6px;margin-top:4px;">
+        <canvas id="prizeQRMelody" style="display:block;background:#fff;padding:0;border:6px solid #fff;"></canvas>
+        <div style="font-family:'Space Mono',monospace;font-size:8px;color:#FFD700;letter-spacing:2px;">📱 OKUT → KUPONUN AÇILIR, PDF OLARAK KAYDEDEBİLİRSİN</div>
+      </div>
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#aaa;letter-spacing:2px;">Ad soyad + bu kodu mağaza ekibine göster</div>
+    </div>
+
+    <div id="cantaBoxMelody" style="display:none;flex-direction:column;align-items:center;gap:8px;width:100%;">
+      <div style="border:2px solid #FFD700;padding:14px 32px;width:100%;max-width:320px;box-sizing:border-box;">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:#FFD700;letter-spacing:4px;margin-bottom:6px;">HEDİYENİ AL!</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:#fff;line-height:2.2;">Bu ekranı mağaza ekibine göster</div>
+      </div>
+    </div>
+
+    <div id="socialBoxMelody" style="border:1px solid #1a1a1a;padding:14px 24px;width:100%;max-width:380px;box-sizing:border-box;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;color:#FFD700;letter-spacing:3px;margin-bottom:8px;">KAZANMAK İÇİN:</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#999;line-height:2.4;">
+        📷 Bu anı fotoğrafla veya video çek<br/>
+        📲 @zuhalmuzik <span style="color:#FFD700;">ve</span> @zuhalakademi etiketle<br/>
+        🎁 Mağaza ekibine göster, ödülünü al!
+      </div>
+    </div>
+
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%;">
+      <button id="btnTekrarOynaMelody" aria-label="Tekrar Oyna" style="display:none;flex:1;min-width:160px;padding:clamp(10px,2vh,16px) clamp(20px,4vw,28px);background:#FFD700;color:#000;border:2px solid #000;font-family:'Space Mono',monospace;font-size:clamp(11px,2vw,13px);font-weight:700;letter-spacing:2px;cursor:pointer;touch-action:manipulation;">◀ PROMO'YA DÖN</button>
+      <button id="btnTamamMelody" aria-label="Kapat" style="flex:1;min-width:160px;padding:clamp(10px,2vh,16px) clamp(20px,4vw,28px);background:#FFD700;color:#000;border:2px solid #000;font-family:'Space Mono',monospace;font-size:clamp(11px,2vw,13px);font-weight:700;letter-spacing:2px;cursor:pointer;touch-action:manipulation;">✓ TAMAM</button>
+    </div>
   </div>
 
 </div>
@@ -754,15 +894,16 @@ function makeCode(prizeCode) {
 }
 
 function wShowPanel(id) {
-  ["gamePromo","gameStart","gamePlaying","gameWin"].forEach(function(p) {
+  ["gamePromo","gameStart","gamePlaying","gameWin","gamePromoMelody","gameStartMelody","gamePlayingMelody","gameWinMelody"].forEach(function(p) {
     var el = document.getElementById(p);
     if (el) el.style.display = "none";
   });
   document.getElementById(id).style.display = "flex";
   // #gamePromo'nun kendi videosu zaten "50" logosunu/başlığı taşıyor — üstteki
   // ortak logo çubuğu üst üste binip kalabalıklaşıyordu, sadece bu panelde gizlenir.
+  // Melody Challenge promo da aynı şekilde gizlenir.
   var logoBar = document.getElementById("overlayLogoBar");
-  if (logoBar) logoBar.style.display = (id === "gamePromo") ? "none" : "flex";
+  if (logoBar) logoBar.style.display = (id === "gamePromo" || id === "gamePromoMelody") ? "none" : "flex";
 }
 
 // Ses çıkış gecikmesi ölçümü.
@@ -846,6 +987,8 @@ function closeGame() {
   document.getElementById("gameOverlay").style.display = "none";
   var promoV = document.getElementById("promoVidRhythm");
   if (promoV) promoV.pause();
+  var promoVMelody = document.getElementById("promoVidMelody");
+  if (promoVMelody) promoVMelody.pause();
   // Ana sayfa (.banner) sessiz olmalı — müzik buraya dönerken KESİLİR, yeniden
   // BAŞLATILMAZ (eskiden 400ms sonra otomatik başlıyordu, artık ana sayfada müzik yok).
   if (typeof stopBannerAudio === 'function') stopBannerAudio();
@@ -2877,6 +3020,199 @@ function scheduleIdleReload() {
     location.reload();
   }, 10000);
 }
+
+// ──── MELODY CHALLENGE ────
+// Eye of the Tiger - Survivor (1982), BPM:105, Melodi: Do Do Sol Mi Do Do Sol Mi (8 nota)
+
+var melodyPrizes = {
+  "perfect":  { emoji:"🏆", label:"MÜKEMMEL", desc:"Akademi 1 Ay — 4 Ders Hediye", code:"AKD1AY", type:"code" },
+  "great":    { emoji:"🎯", label:"HARİKA", desc:"Akademi Ücretsiz Deneme Dersi", code:"AKDRS", type:"code" },
+  "good":     { emoji:"🎵", label:"İYİ", desc:"Akademide İlk Ay %50 İndirim", code:"AKD50", type:"code" },
+  "ok":       { emoji:"🎁", label:"İDARE EDER", desc:"Zuhal Bez Çanta", code:"CANTA", type:"code" },
+  "fail":     { emoji:"💪", label:"ÇALIŞMAYA DEVAM", desc:"Tekrar dene!", code:"", type:"none" }
+};
+
+var melodyGameState = {
+  active: false,
+  audioCtx: null,
+  playerName: "",
+  correctNotes: 0,
+  errorCount: 0,
+  notesPlayed: [],
+  targetSequence: [1, 1, 5, 3, 1, 1, 5, 3],
+  midiInput: null
+};
+
+function playMelodyNote(noteNum, duration) {
+  duration = duration || 0.15;
+  if (!melodyGameState.audioCtx) {
+    melodyGameState.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  var ctx = melodyGameState.audioCtx;
+  var notes = {
+    1: {freq: 261.63, name: "Do"},
+    2: {freq: 293.66, name: "Re"},
+    3: {freq: 329.63, name: "Mi"},
+    4: {freq: 349.23, name: "Fa"},
+    5: {freq: 392.00, name: "Sol"},
+    6: {freq: 440.00, name: "La"},
+    7: {freq: 493.88, name: "Si"},
+    8: {freq: 523.25, name: "Do'"}
+  };
+  var note = notes[noteNum];
+  if (!note) return;
+
+  var now = ctx.currentTime;
+  var osc = ctx.createOscillator();
+  var gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.frequency.value = note.freq;
+  osc.type = "sine";
+  gain.gain.setValueAtTime(0.3, now);
+  gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
+  osc.start(now);
+  osc.stop(now + duration);
+}
+
+function flashMelodyPad(noteNum, success) {
+  var pads = document.querySelectorAll(".melody-pad");
+  for (var i = 0; i < pads.length; i++) {
+    if (pads[i].getAttribute("data-note") == noteNum) {
+      pads[i].classList.add(success ? "active" : "error");
+      setTimeout(function(p) { return function() { p.classList.remove("active", "error"); }; }(pads[i]), 200);
+      break;
+    }
+  }
+}
+
+function handleMelodyInput(noteNum) {
+  if (!melodyGameState.active) return;
+  playMelodyNote(noteNum, 0.15);
+
+  var expected = melodyGameState.targetSequence[melodyGameState.notesPlayed.length];
+  var isCorrect = (noteNum === expected);
+
+  if (isCorrect) {
+    melodyGameState.correctNotes++;
+  } else {
+    melodyGameState.errorCount++;
+  }
+
+  melodyGameState.notesPlayed.push(noteNum);
+  flashMelodyPad(noteNum, isCorrect);
+  updateMelodyStatus();
+
+  if (melodyGameState.notesPlayed.length >= melodyGameState.targetSequence.length) {
+    setTimeout(finishMelodyGame, 500);
+  }
+}
+
+function updateMelodyStatus() {
+  var total = melodyGameState.targetSequence.length;
+  var accuracy = total > 0 ? Math.round((melodyGameState.correctNotes / total) * 100) : 0;
+  document.getElementById("melodyStatusBar").textContent =
+    "✓ Doğru: " + melodyGameState.correctNotes + "/" + total + " | ✕ Hata: " + melodyGameState.errorCount + " | Doğruluk: " + accuracy + "%";
+}
+
+function startMelodyGame() {
+  var nameInput = document.getElementById("playerNameInputMelody");
+  melodyGameState.playerName = (nameInput.value || "Müşteri").substring(0, 30);
+  melodyGameState.active = true;
+  melodyGameState.correctNotes = 0;
+  melodyGameState.errorCount = 0;
+  melodyGameState.notesPlayed = [];
+
+  wShowPanel("gamePlayingMelody");
+  document.getElementById("gameStatusTxtMelody").textContent = "HAZIR...";
+  updateMelodyStatus();
+}
+
+function finishMelodyGame() {
+  melodyGameState.active = false;
+
+  var total = melodyGameState.targetSequence.length;
+  var accuracy = total > 0 ? Math.round((melodyGameState.correctNotes / total) * 100) : 0;
+
+  var rewardTier = "fail";
+  if (accuracy === 100) rewardTier = "perfect";
+  else if (accuracy >= 85) rewardTier = "great";
+  else if (accuracy >= 70) rewardTier = "good";
+  else if (accuracy >= 50) rewardTier = "ok";
+
+  var reward = melodyPrizes[rewardTier];
+
+  document.getElementById("winEmojiMelody").textContent = reward.emoji;
+  document.getElementById("winLabelMelody").textContent = reward.label;
+  document.getElementById("winTitleMelody").textContent = reward.label;
+  document.getElementById("winDescMelody").textContent = reward.desc;
+  document.getElementById("winPlayerNameMelody").textContent = melodyGameState.playerName;
+  document.getElementById("winPlayerNameMelody").style.display = "block";
+
+  if (reward.type === "code") {
+    var code = makeCode(reward.code);
+    document.getElementById("prizeCodeMelody").textContent = code;
+    document.getElementById("prizeExpiryMelody").textContent = "Geçerlilik: " + formatDate(addOneMonth(new Date()));
+    document.getElementById("codeBoxMelody").style.display = "flex";
+    document.getElementById("cantaBoxMelody").style.display = "none";
+
+    try {
+      qrRender(document.getElementById("prizeQRMelody"), qrPayload(code, formatDate(addOneMonth(new Date())), melodyGameState.playerName));
+      document.getElementById("qrBoxMelody").style.display = "flex";
+    } catch(e) { document.getElementById("qrBoxMelody").style.display = "none"; }
+  } else {
+    document.getElementById("codeBoxMelody").style.display = "none";
+    document.getElementById("cantaBoxMelody").style.display = "flex";
+  }
+
+  var plays = loadPlays();
+  if (!plays[melodyGameState.playerName]) plays[melodyGameState.playerName] = {};
+  plays[melodyGameState.playerName].result = rewardTier;
+  plays[melodyGameState.playerName].accuracy = accuracy;
+  if (reward.code) plays[melodyGameState.playerName].code = makeCode(reward.code);
+  savePlays(plays);
+
+  wShowPanel("gameWinMelody");
+}
+
+document.getElementById("btnPromoEnterMelody")?.addEventListener("click", function() {
+  document.getElementById("playerNameInputMelody").value = "";
+  wShowPanel("gameStartMelody");
+});
+
+document.getElementById("btnBaşlaMelody")?.addEventListener("click", startMelodyGame);
+
+document.getElementById("btnTamamMelody")?.addEventListener("click", function() {
+  wShowPanel("gamePromoMelody");
+});
+
+document.getElementById("btnTekrarOynaMelody")?.addEventListener("click", function() {
+  wShowPanel("gameStartMelody");
+});
+
+document.getElementById("btnGeriMelody")?.addEventListener("click", closeGame);
+document.getElementById("btnPromoBackMelody")?.addEventListener("click", closeGame);
+
+document.querySelectorAll(".melody-pad").forEach(function(pad) {
+  pad.addEventListener("click", function(e) {
+    e.preventDefault();
+    handleMelodyInput(parseInt(this.getAttribute("data-note")));
+  });
+  pad.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    handleMelodyInput(parseInt(this.getAttribute("data-note")));
+  });
+});
+
+document.getElementById("cardMelodyChallenge")?.addEventListener("click", function() {
+  openGameOverlay();
+  wShowPanel("gamePromoMelody");
+  var vid = document.getElementById("promoVidMelody");
+  if (vid) {
+    vid.currentTime = 0;
+    vid.play().catch(function(e) { console.log("Video play error:", e); });
+  }
+});
 
 </script>
 </body>
