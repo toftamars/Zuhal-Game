@@ -3220,6 +3220,24 @@ document.querySelectorAll(".melody-pad").forEach(function(pad) {
   });
 });
 
+// Oyun sayfasında ekrana dokunarak müzik aç/kapat
+document.getElementById("gamePlayingMelody")?.addEventListener("click", function(e) {
+  if (e.target && e.target.closest && e.target.closest("button")) return;
+  var vid = document.getElementById("melodyGameVideo");
+  if (vid) {
+    vid.muted = !vid.muted;
+  }
+});
+
+// Promo sayfasında ekrana dokunarak müzik aç/kapat
+document.getElementById("gamePromoMelody")?.addEventListener("click", function(e) {
+  if (e.target && e.target.closest && e.target.closest("button")) return;
+  var vid = document.getElementById("promoVidMelody");
+  if (vid) {
+    vid.muted = !vid.muted;
+  }
+});
+
 document.getElementById("cardMelodyChallenge")?.addEventListener("click", function() {
   document.getElementById("gameOverlay").style.display = "block";
   wShowPanel("gamePromoMelody");
