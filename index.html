@@ -325,7 +325,7 @@ body{font-family:'Bebas Neue',sans-serif;}
 
   <!-- PROMO: Eye of the Tiger tanıtım ekranı (video + akademi şeritleri) -->
   <div id="gamePromoMelody" style="display:none;width:100%;height:100%;position:relative;overflow:hidden;">
-    <video id="promoVidMelody" class="promo-vid" src="games/melody-challenge/eye-of-the-tiger.mp4" muted loop playsinline webkit-playsinline></video>
+    <video id="promoVidMelody" class="promo-vid" src="games/melody-challenge/eye-of-the-tiger.mp4" loop playsinline webkit-playsinline></video>
 
     <!-- Kayan Akademi şeritleri (Rhythm Challenge ile aynı) -->
     <div class="vs vs-l"><div class="vs-t">🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • 🎵 ZUHAL AKADEMİ • 🎤 ÜCRETSİZ DENEME DERSİ • 🎸 4 DERS HEDİYE • 🎹 İLK AY %50 İNDİRİM • 🥁 MÜZİĞE BUGÜN BAŞLA • </div></div>
@@ -380,23 +380,27 @@ body{font-family:'Bebas Neue',sans-serif;}
   </div>
 
   <!-- OYNUYOR: 8 nota padi -->
-  <div id="gamePlayingMelody" style="display:none;width:100%;height:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;">
-    <div id="gameStatusTxtMelody" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#888;">HAZIR...</div>
-    <div id="melodySequenceDisplay" style="font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;color:#00FFFF;text-shadow:0 0 15px #00FFFF;background:rgba(0,0,0,0.5);padding:12px 20px;border-radius:8px;">① ① ⑤ ③ → ① ① ⑤ ③</div>
+  <div id="gamePlayingMelody" style="display:none;width:100%;height:100%;position:relative;overflow:hidden;">
+    <video id="melodyGameVideo" class="promo-vid" src="games/melody-challenge/eye-of-the-tiger.mp4" loop playsinline webkit-playsinline></video>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.7) 100%);z-index:2;pointer-events:none;"></div>
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(20px,4vh,40px);padding-top:var(--page-top);box-sizing:border-box;pointer-events:none;">
+      <div id="gameStatusTxtMelody" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;color:#00FFFF;">Doğru sırayla çal: Do Do Sol Mi Do Do Sol Mi</div>
+      <div id="melodySequenceDisplay" style="font-family:'Space Mono',monospace;font-size:13px;letter-spacing:2px;color:#00FFFF;text-shadow:0 0 15px #00FFFF;background:rgba(0,0,0,0.5);padding:12px 20px;border-radius:8px;">① ① ⑤ ③ → ① ① ⑤ ③</div>
 
-    <div style="display:grid;grid-template-columns:repeat(4,clamp(60px,15vw,100px));gap:clamp(8px,2vw,14px);">
-      <button class="melody-pad" data-note="1" data-name="Do" data-midi="60" aria-label="Do">⊙①<br/>Do</button>
-      <button class="melody-pad" data-note="2" data-name="Re" data-midi="62" aria-label="Re">⊙②<br/>Re</button>
-      <button class="melody-pad" data-note="3" data-name="Mi" data-midi="64" aria-label="Mi">⊙③<br/>Mi</button>
-      <button class="melody-pad" data-note="4" data-name="Fa" data-midi="65" aria-label="Fa">⊙④<br/>Fa</button>
+      <div style="display:grid;grid-template-columns:repeat(4,clamp(60px,15vw,100px));gap:clamp(8px,2vw,14px);pointer-events:all;">
+        <button class="melody-pad" data-note="1" data-name="Do" data-midi="60" aria-label="Do">⊙①<br/>Do</button>
+        <button class="melody-pad" data-note="2" data-name="Re" data-midi="62" aria-label="Re">⊙②<br/>Re</button>
+        <button class="melody-pad" data-note="3" data-name="Mi" data-midi="64" aria-label="Mi">⊙③<br/>Mi</button>
+        <button class="melody-pad" data-note="4" data-name="Fa" data-midi="65" aria-label="Fa">⊙④<br/>Fa</button>
 
-      <button class="melody-pad" data-note="5" data-name="Sol" data-midi="67" aria-label="Sol">⊙⑤<br/>Sol</button>
-      <button class="melody-pad" data-note="6" data-name="La" data-midi="69" aria-label="La">⊙⑥<br/>La</button>
-      <button class="melody-pad" data-note="7" data-name="Si" data-midi="71" aria-label="Si">⊙⑦<br/>Si</button>
-      <button class="melody-pad" data-note="8" data-name="Do'" data-midi="72" aria-label="Do'">⊙⑧<br/>Do'</button>
+        <button class="melody-pad" data-note="5" data-name="Sol" data-midi="67" aria-label="Sol">⊙⑤<br/>Sol</button>
+        <button class="melody-pad" data-note="6" data-name="La" data-midi="69" aria-label="La">⊙⑥<br/>La</button>
+        <button class="melody-pad" data-note="7" data-name="Si" data-midi="71" aria-label="Si">⊙⑦<br/>Si</button>
+        <button class="melody-pad" data-note="8" data-name="Do'" data-midi="72" aria-label="Do'">⊙⑧<br/>Do'</button>
+      </div>
+
+      <div id="melodyStatusBar" style="font-family:'Space Mono',monospace;font-size:10px;color:#00FFFF;text-shadow:0 0 10px #00FFFF;background:rgba(0,0,0,0.5);padding:10px 16px;border-radius:6px;">✓ Doğru: 0/8 | ✕ Hata: 0 | Doğruluk: 0%</div>
     </div>
-
-    <div id="melodyStatusBar" style="font-family:'Space Mono',monospace;font-size:10px;color:#00FFFF;text-shadow:0 0 10px #00FFFF;background:rgba(0,0,0,0.5);padding:10px 16px;border-radius:6px;">✓ Doğru: 0/8 | ✕ Hata: 0 | Doğruluk: 0%</div>
   </div>
 
   <!-- KAZANDIN: Sonuç ve kupon -->
@@ -3124,12 +3128,24 @@ function startMelodyGame() {
   melodyGameState.notesPlayed = [];
 
   wShowPanel("gamePlayingMelody");
+
+  // Oyun videosu başlat
+  var vid = document.getElementById("melodyGameVideo");
+  if (vid) {
+    vid.currentTime = 0;
+    vid.play().catch(function(e) { console.log("Video play error:", e); });
+  }
+
   document.getElementById("gameStatusTxtMelody").textContent = "Doğru sırayla çal: Do Do Sol Mi Do Do Sol Mi";
   updateMelodyStatus();
 }
 
 function finishMelodyGame() {
   melodyGameState.active = false;
+
+  // Oyun videosu durdur
+  var vid = document.getElementById("melodyGameVideo");
+  if (vid) vid.pause();
 
   var total = melodyGameState.targetSequence.length;
   var accuracy = total > 0 ? Math.round((melodyGameState.correctNotes / total) * 100) : 0;
