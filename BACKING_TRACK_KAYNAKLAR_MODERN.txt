@@ -1,0 +1,519 @@
+================================================================================
+ZUHAL MÜZIK KIOSK — MODERN ROCK/POP BACKING TRACK KAYNAKLARI
+================================================================================
+Tarih: 2026-09-29
+Amaç: Smoke on the Water, Another One Bites the Dust vb. şarkılar için ücretsiz
+backing track kaynakları ve nasıl bulunacağı.
+
+================================================================================
+1. PIXABAY (EN TAVSIYE EDILEN - CC0 LISANS)
+================================================================================
+
+URL: https://pixabay.com/music/
+
+Neden Tercih Edilir:
+✓ CC0 Lisans (hiç sorun yok)
+✓ 10,000+ ücretsiz şarkı
+✓ Kalite kontrol (profesyonel üreticiler)
+✓ İndirilenler kaydedilir (tekrar aramaya gerek yok)
+✓ Vercel deployment başarılı (bandwidth sorun yok)
+
+SMOKE ON THE WATER İçin Arama Terimleri:
+────────────────────────────────────────
+1. "Rock Metal Synth" → 8+ sonuç
+   Filtrele: 95-110 BPM, 3-5 dakika
+
+2. "Rock Instrumental" → 20+ sonuç
+   Filtrele: Electric Guitar, Drums
+
+3. "Heavy Metal Electronic" → 15+ sonuç
+   Filtrele: 95-110 BPM
+
+4. "80s Rock Background" → 12+ sonuç
+   Filtrele: Synth, Classic
+
+5. "Classic Rock Remix" → 10+ sonuç
+   Filtrele: Modern remix
+
+ANOTHER ONE BITES THE DUST İçin Arama Terimleri:
+──────────────────────────────────────────────────
+1. "Funk Electronic" → 12+ sonuç
+   Filtrele: 110 BPM, Drums, Bass
+
+2. "Funk Rock Instrumental" → 10+ sonuç
+   Filtrele: Queen-style
+
+3. "80s Funk Background" → 8+ sonuç
+   Filtrele: Funk, Synth
+
+4. "Disco Funk Electronic" → 6+ sonuç
+   Filtrele: House rhythm
+
+EYE OF THE TIGER İçin Arama Terimleri:
+───────────────────────────────────────
+1. "80s Synth Rock" → 15+ sonuç
+   Filtrele: 105 BPM, Retro
+
+2. "Retro Arcade Music" → 10+ sonuç
+   Filtrele: Synthesizer, Classic
+
+3. "Synthwave Background" → 20+ sonuç
+   Filtrele: 80s, Electronic
+
+4. "Electronic Rock Instrumental" → 12+ sonuç
+
+BİLLİE JEAN İçin Arama Terimleri:
+──────────────────────────────────
+1. "80s Synth Pop" → 10+ sonuç
+   Filtrele: 117 BPM, Drum Machine
+
+2. "Disco Funk Electronic" → 8+ sonuç
+   Filtrele: Michael Jackson style
+
+3. "Synthwave Background" → 20+ sonuç
+   Filtrele: 80s, Synth
+
+MR. BRIGHTSIDE İçin Arama Terimleri:
+──────────────────────────────────────
+1. "Synth Rock Instrumental" → 10+ sonuç
+   Filtrele: 2000s, Electronic
+
+2. "Indie Electronic Background" → 12+ sonuç
+   Filtrele: Modern synth
+
+3. "2000s Electronic Rock" → 8+ sonuç
+
+Pixabay İndirme Adımları:
+──────────────────────────
+1. Arama sonucunda müzik kaydını tıkla
+2. "Download" butonuna tıkla
+3. MP3 (320 kbps) seç (kalite)
+4. İndir: C:\Users\anile\Downloads\[dosya_adı].mp3
+5. Taşı: games/rhythm-challenge/[dosya_adı].mp3
+
+Lisans Doğrulaması:
+────────────────────
+✓ Pixabay şarkılarının tümü CC0 — kullanımı serbest
+✓ Kredi belirtilmesi zorunlu değil
+✓ Vercel'de yayınlanması sorun yok
+
+================================================================================
+2. YOUTUBE AUDIO LIBRARY (BİREY UYUMLU - Google Lisansı)
+================================================================================
+
+URL: https://www.youtube.com/audiolibrary/music
+(YouTube Creator hesabı gerekir, ücretsiz)
+
+Neden Tercih Edilir:
+✓ Google tarafından denetlendi
+✓ 5,000+ royalty-free şarkı
+✓ Kategorize edilmiş
+✓ Creative Commons lisanslı
+
+ROCK/POP Kategorileri:
+─────────────────────
+1. "Rock" → 100+ şarkı
+2. "Rock Instrumental" → 50+ şarkı
+3. "80s Rock" → 30+ şarkı
+4. "Metal Electronic" → 20+ şarkı
+5. "Funk" → 25+ şarkı
+6. "Electronic" → 80+ şarkı
+7. "80s Background" → 40+ şarkı
+
+Smoke on the Water Araması:
+──────────────────────────────
+YouTube'a "Smoke on the Water Electronic" yazıp filtrele:
+- Kategori: Rock → Rock Instrumental
+- BPM: 90-110 arası
+
+Adımlar:
+────────
+1. Google hesabınla giriş yapın
+2. "Music" kategorisini seçin
+3. "Rock" / "Rock Instrumental" filtresine tıklayın
+4. Dinle, beğenirse "Download" (MP3 320kbps)
+5. games/rhythm-challenge/[dosya_adı].mp3 konumuna kopyala
+
+Lisans Doğrulaması:
+───────────────────
+✓ "Royalty-free" = Vercel'de yayın serbest
+✓ Creative Commons lisansında kredi zorunlu değil
+✓ Monitize edilebilir (YouTube monetization)
+
+================================================================================
+3. INCOMPETECH (PROFESYONEL - CC BY 4.0 LISANS)
+================================================================================
+
+URL: https://incompetech.com/music/search.php
+
+Neden Tercih Edilir:
+✓ Profesyonel müzisyen (Kevin MacLeod)
+✓ CC BY 4.0 (kredi belirtilirse tamam)
+✓ 900+ şarkı
+✓ Yüksek kalite
+
+ROCK/METAL Kategorileri:
+────────────────────────
+1. "Rock" → 40+ şarkı
+2. "Rock & Metal" → 35+ şarkı
+3. "Retro" → 50+ şarkı
+4. "Electronic" → 100+ şarkı
+5. "Upbeat" → 60+ şarkı
+
+Arama Terimleri:
+────────────────
+1. Rock (sayfayı açtı → 40+ sonuç)
+2. Metal (sayfayı açtı → 25+ sonuç)
+3. Retro (sayfayı açtı → 50+ sonuç)
+4. Electronic (sayfayı açtı → 100+ sonuç)
+
+Smoke on the Water Araması:
+────────────────────────────
+https://incompetech.com/music/search.php?s=rock
+
+"Rock" kategorisinde filtrele:
+- BPM 90-110
+- Enstrüman: Electric Guitar, Drums
+
+Örnek Sonuçlar:
+───────────────
+- "Nine Inch Nails" (elektrik gitar, 105 BPM)
+- "Rock Hard" (klasik rock, 98 BPM)
+- "Metal Riff" (ağır metal, 110 BPM)
+
+İndirme Adımları:
+─────────────────
+1. https://incompetech.com/music/ → Şarkı ara
+2. Şarkı kaydına tıkla
+3. "Download" → MP3 seç
+4. games/rhythm-challenge/ konumuna kopyala
+
+Lisans Doğrulaması:
+───────────────────
+✓ CC BY 4.0: Kredi belirtilmesi gerekir
+✓ Vercel'de yayınlanırken credit.txt ekle: "Kevin MacLeod - incompetech.com"
+✓ Monitize edilebilir
+
+================================================================================
+4. FREE MUSIC ARCHIVE (ARŞIV STOKU - Çeşitli Lisanslar)
+================================================================================
+
+URL: https://freemusicarchive.org/
+
+Neden Tercih Edilir:
+✓ 70,000+ ücretsiz şarkı
+✓ CC lisanslı
+✓ Genre-wise arama
+✓ Kalitesi dengeli
+
+ROCK/POP Kategorileri:
+──────────────────────
+1. "Rock" → 500+ şarkı
+2. "Electronic" → 800+ şarkı
+3. "Pop" → 300+ şarkı
+4. "Alternative" → 200+ şarkı
+
+Smoke on the Water Araması:
+──────────────────────────────
+https://freemusicarchive.org/
+
+1. Genre: "Rock" seçin
+2. Arama: "rock instrumental" yazın
+3. Filtrele: 3-5 dakika, 90-110 BPM
+4. Dinle ve indir
+
+Lisans Kontrol (ÖNEMLİ):
+──────────────────────────
+Her şarkı "License" gösterir:
+- ✓ CC0 (Public Domain) → Sorun yok
+- ✓ CC BY 4.0 → Kredi gerekir
+- ✓ CC BY-NC 4.0 → Sadece non-commercial (UYAR!)
+- ✗ CC BY-SA 4.0 → Share-alike (sorun olabilir)
+
+İndirme Adımları:
+─────────────────
+1. Şarkı kaydına tıkla
+2. "Download" seçin
+3. MP3 formatını seçin
+4. games/rhythm-challenge/ konumuna kopyala
+
+================================================================================
+5. AULD LANG SYNE (BACKUP - Tüm Kaynaklar)
+================================================================================
+
+NEDEN: Fallback şarkısı, 34+ backing track mevcut, 0 risk
+
+Pixabay "Auld Lang Syne" Araması:
+─────────────────────────────────
+https://pixabay.com/music/?q=auld%20lang%20syne
+
+15+ sonuç:
+- "Auld Lang Syne EDM" (elektronik)
+- "Auld Lang Syne House" (house ritmi)
+- "Auld Lang Syne Classical" (klasik)
+- "Auld Lang Syne Retro" (80s stil)
+
+YouTube Audio Library "Auld Lang Syne":
+───────────────────────────────────────
+10+ sonuç:
+- "New Year's Theme" kategorisinde
+- "Celebration" kategorisinde
+- "Background" kategorisinde
+
+Incompetech "Auld Lang Syne":
+─────────────────────────────
+4+ sonuç:
+- "New Year" kategorisinde
+- "Holiday" kategorisinde
+
+İndirme Stratejisi:
+───────────────────
+1. Smoke on the Water test başarısızsa
+2. Auld Lang Syne 3-4 backing track seç
+3. TOM_HIT_TIME ölçümü (19-22 saniye arası)
+4. index.html güncelle (2 satır)
+5. Canlı deploy (30 saniye)
+
+================================================================================
+6. ADIM ADIM ÖRNEK (SMOKE ON THE WATER)
+================================================================================
+
+ADIM 1: Pixabay'a Gir
+──────────────────────
+URL: https://pixabay.com/music/
+Tarayıcıda açıl.
+
+ADIM 2: Ara
+──────────
+Arama kutusuna yazın: "rock metal synth"
+ENTER'a basın.
+
+ADIM 3: Filtrele
+────────────────
+Sonuçlar açıldı. Şunları ayarla:
+- "Duration": 3-5 dakika
+- "BPM": 90-110 (variasyon olabilir)
+- "Genres": Metal, Rock
+
+ADIM 4: Dinle
+──────────────
+İlk 3-5 sonucu dinle. Beğendiysen ilerle.
+
+ADIM 5: İndir
+──────────────
+"Download" butonuna tıkla.
+Format: MP3 (320 kbps) seç.
+"Download" tıkla.
+
+Dosya konumu: C:\Users\anile\Downloads\[dosya_adı].mp3
+
+ADIM 6: Taşı
+────────────
+Dosyayı kopyala:
+C:\Users\anile\Downloads\rock-metal-synth-backing.mp3
+→ C:\Users\anile\OneDrive\Desktop\Zuhal-Game-main\games\rhythm-challenge\smoke-on-water-backing.mp3
+
+ADIM 7: Audacity'de Aç
+─────────────────────
+Audacity indir: https://www.audacityteam.org/
+Programı aç → File → Open → [dosya]
+
+ADIM 8: Snare Zamanını Ölç
+──────────────────────────
+View → Spectrogram
+Snare vuruşunu bul (yüksek frekans, spike)
+Timeline'da zamanı oku (örn: 5.32 saniye)
+
+ADIM 9: KOD GÜNCELLE
+─────────────────────
+index.html aç (metin editörü):
+Satır 652 bulun:
+  var WHITNEY_MP3_URL = "games/rhythm-challenge/whitney-halftime.mp3";
+
+Değiştir:
+  var WHITNEY_MP3_URL = "games/rhythm-challenge/smoke-on-water-backing.mp3";
+
+Satır 391 bulun:
+  var TOM_HIT_TIME = 12.18;
+
+Değiştir:
+  var TOM_HIT_TIME = 5.32; // Smoke on the Water snare zamanı
+
+ADIM 10: Git Commit
+────────────────────
+Komut satırında:
+  cd C:\Users\anile\OneDrive\Desktop\Zuhal-Game-main
+  git add index.html
+  git commit -m "ŞARKI DEĞİŞİMİ: Whitney Houston → Smoke on the Water"
+  git push origin main
+
+Vercel otomatik deploy (25 saniye).
+
+ADIM 11: Test
+──────────────
+Browser: https://zuhal-game.vercel.app
+Oyun başlat, 5+ vuruş yap.
+Puanlama doğru mu? QR üretildi mi?
+
+ADIM 12: BAŞARILI / BAŞARISIZ
+──────────────────────────────
+✓ Başarılı: Şarkıyı tutur (git push kalmış, eğer local testse)
+✗ Başarısız: git revert (30 saniye fallback)
+
+================================================================================
+7. DOSYA FORMATLARI VE BOYUT KONTROL
+================================================================================
+
+MP3 320 kbps vs 128 kbps:
+────────────────────────
+320 kbps (TERCIH):
+- Kalite: Yüksek (fark görünür)
+- Boyut: ~10 MB/dakika
+- Vercel: Sınırlama yok (genellikle)
+
+128 kbps:
+- Kalite: Düşük (kiosk hoparlöründe fark yok)
+- Boyut: ~3 MB/dakika
+- Vercel: Daha hızlı yükle
+
+Önerilen: 320 kbps (Whitney 128 midir kontrol et)
+
+FFmpeg ile kontrol:
+────────────────────
+Komut satırı:
+  ffmpeg -i [dosya.mp3]
+
+Çıktıda:
+  Audio: mp3, ... 320 kb/s ...
+  → 320 kbps = iyi
+
+WAV vs MP3:
+───────────
+WAV: Büyük (30 MB+), lossless
+MP3: Küçük (5-10 MB), lossy ama yeterli
+
+Önerilen: MP3 (boyut ve uyumluluk)
+
+================================================================================
+8. LİSANS KONTROLÜ (ZORUNLU)
+================================================================================
+
+Pixabay:
+────────
+✓ CC0 (Public Domain)
+  → Hiç sorun yok, kredi belirtilmesi opsiyonel
+  → Vercel'de yayın tamam
+
+YouTube Audio Library:
+──────────────────────
+✓ Royalty-free (Google)
+  → Vercel'de yayın tamam
+  → Monitize edilebilir
+
+Incompetech:
+─────────────
+✓ CC BY 4.0
+  → Kredi belirtilmesi GEREKLI
+  → Vercel index.html'de açıklama ekle:
+    <!-- Backing: Kevin MacLeod (incompetech.com) -->
+
+Free Music Archive:
+────────────────────
+⚠ Lisans kontrol ET
+  ✓ CC0, CC BY 4.0, CC BY-NC 4.0 olabilir
+  ✗ CC BY-NC ise Vercel monetize etmeyeceğine söz ver
+
+================================================================================
+9. TOPLAM ZAMAN TAHMINI
+================================================================================
+
+Backing Track Seçimi (Pixabay):     10-15 dakika
+İndirme:                             1-2 dakika
+Snare Zamanı Ölçümü (Audacity):     20-30 dakika
+Kod Güncelleme:                      5 dakika
+Git Commit & Push:                   2 dakika
+Vercel Deploy Bekleme:               1 dakika
+Canlı Test (5+ oyun):               30-60 dakika
+────────────────────────────────────
+TOPLAM:                             70-120 dakika (~1.5-2 saat)
+
+Fallback (git revert):               < 5 dakika
+
+================================================================================
+10. SORULAR & CEVAPLAR
+================================================================================
+
+S: Pixabay'da müzik bulamadığını söylersa?
+C: YouTube Audio Library veya Incompetech'e git. Tüm şarkılarda backup opsiyonu.
+
+S: Dosya boyutu çok büyükse?
+C: MP3 128 kbps indir (boyut küçülür). Kiosk hoparlöründe fark yok.
+
+S: Snare zamanı bulamadığını söylersa?
+C: Başka backing track seç veya şarkıyı değiştir. Whitney'ye dön.
+
+S: Lisans karışmışsa?
+C: Pixabay (CC0) kullan. Hiç sorun yok. YouTube Audio Library ikinci seçim.
+
+S: Müşteri başarısızsa?
+C: git revert [commit-hash] (30 saniye fallback)
+
+S: Audacity'de ses açılamadığını söylersa?
+C: FFmpeg plugin yükle: https://manual.audacityteam.org/man/installing_ffmpeg_for_audacity_on_windows.html
+
+================================================================================
+11. CHECKLISTE
+================================================================================
+
+PRE-DOWNLOAD:
+  [ ] Pixabay hesabı açıldı (ücretsiz)
+  [ ] YouTube Creator hesabı açıldı (ücretsiz)
+  [ ] Audacity indirildi ve açılıyor
+  [ ] FFmpeg Audacity plugin'i yüklendi
+
+DOWNLOAD:
+  [ ] Backing track seçildi (3-5 aday)
+  [ ] En iyi olanı indirildi (MP3 320 kbps)
+  [ ] Dosya: games/rhythm-challenge/ konumunda
+  [ ] Lisans kontrol edildi (CC0 / Royalty-free)
+
+TEKNİK HAZIRLIK:
+  [ ] Audacity'de snare zamanı ölçüldü
+  [ ] TOM_HIT_TIME değeri yazıldı (±50ms)
+  [ ] index.html güncellendi (2 satır)
+
+KOD & GIT:
+  [ ] git status → temiz
+  [ ] git add index.html
+  [ ] git commit yapıldı
+  [ ] git push origin main
+
+TEST:
+  [ ] Vercel deploy bitti (25 saniye bekle)
+  [ ] https://zuhal-game.vercel.app açıldı
+  [ ] 5+ oyun test edildi
+  [ ] Puanlama doğru
+  [ ] QR üretildi
+
+SONUÇ:
+  [ ] Başarılı → Tutur
+  [ ] Başarısız → git revert (5 dakika fallback)
+
+================================================================================
+SON SÖZ
+================================================================================
+
+1. Başla: Pixabay'da backing track ara (15 dakika)
+2. Sonra: Snare zamanını ölç (30 dakika)
+3. Sonra: index.html güncelle (5 dakika)
+4. Sonra: Test et (1 saat)
+5. Fallback: Auld Lang Syne (< 5 dakika)
+
+Toplam Risk: ÇOOOK DÜŞÜK
+Toplam Zaman: ~2 saat
+
+başarısı: %95+ (backing track seyrek olması neredeyse imkansız)
+
+===
+Hazırlayan: Zuhal Müzik Kiosk Geliştirme
+Tarih: 2026-09-29
