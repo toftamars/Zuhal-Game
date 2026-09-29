@@ -151,8 +151,10 @@ body{font-family:'Bebas Neue',sans-serif;}
 .melody-pad.active{background:#00FF00;box-shadow:0 0 30px #00FF00;color:#000;
   transform:scale(1.15);animation:melody-scale-pulse 0.15s;}
 .melody-pad.error{animation:melody-shake 0.05s 3;box-shadow:0 0 30px #FF0055;}
+.melody-pad.next-hint{border:2px solid #00FF00;box-shadow:0 0 15px #00FF00,0 0 30px #00FF00;animation:melody-hint-pulse 1.5s ease-in-out infinite;}
 @keyframes melody-scale-pulse{0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1.15);}}
 @keyframes melody-shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-2px);}75%{transform:translateX(2px);}}
+@keyframes melody-hint-pulse{0%{box-shadow:0 0 15px #00FF00,0 0 30px #00FF00;}50%{box-shadow:0 0 25px #00FF00,0 0 50px #00FF00;}100%{box-shadow:0 0 15px #00FF00,0 0 30px #00FF00;}}
 </style>
 </head>
 <body>
@@ -3090,6 +3092,25 @@ function flashMelodyPad(noteNum, success) {
   }
 }
 
+function highlightNextMelodyPad() {
+  // Önceki highlight'ı kaldır
+  document.querySelectorAll(".melody-pad.next-hint").forEach(function(p) {
+    p.classList.remove("next-hint");
+  });
+
+  // Sonraki notayı vurgula
+  if (melodyGameState.active) {
+    var nextNoteNum = melodyGameState.targetSequence[melodyGameState.notesPlayed.length];
+    var pads = document.querySelectorAll(".melody-pad");
+    for (var i = 0; i < pads.length; i++) {
+      if (parseInt(pads[i].getAttribute("data-note")) === nextNoteNum) {
+        pads[i].classList.add("next-hint");
+        break;
+      }
+    }
+  }
+}
+
 function handleMelodyInput(noteNum) {
   if (!melodyGameState.active) return;
   playMelodyNote(noteNum, 0.15);
@@ -3106,6 +3127,11 @@ function handleMelodyInput(noteNum) {
   melodyGameState.notesPlayed.push(noteNum);
   flashMelodyPad(noteNum, isCorrect);
   updateMelodyStatus();
+
+  // Doğru ise sonraki notayı vurgula
+  if (isCorrect) {
+    setTimeout(highlightNextMelodyPad, 200);
+  }
 
   if (melodyGameState.notesPlayed.length >= melodyGameState.targetSequence.length) {
     setTimeout(finishMelodyGame, 500);
@@ -3138,6 +3164,9 @@ function startMelodyGame() {
 
   document.getElementById("gameStatusTxtMelody").textContent = "Doğru sırayla çal: Do Do Sol Mi Do Do Sol Mi";
   updateMelodyStatus();
+
+  // İlk notayı vurgula
+  highlightNextMelodyPad();
 }
 
 function finishMelodyGame() {
