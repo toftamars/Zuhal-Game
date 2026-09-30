@@ -3194,6 +3194,9 @@ function startCountdown() {
   var audioEl = document.getElementById("melodyGameAudio");
   if (audioEl) {
     audioEl.currentTime = 0;
+    // Countdown sırasında sesizce play (autoplay politikasını bypass et)
+    audioEl.muted = true;
+    audioEl.play().catch(function(e) { console.log("Silent preload error:", e); });
   }
 
   var countdownInterval = setInterval(function() {
@@ -3202,13 +3205,13 @@ function startCountdown() {
 
     if (count < 0) {
       clearInterval(countdownInterval);
-      // Countdown bitti, müzik başlasın
+      // Countdown bitti, sesi aç ve sync başlat
       if (audioEl) {
         melodyGameState.active = true;
         melodyGameState.audioElement = audioEl;
         melodyGameState.audioStartTime = Date.now() / 1000;
-        audioEl.play().catch(function(e) { console.log("Audio play error:", e); });
-        console.log("MP3 playback started (HTML element)");
+        audioEl.muted = false;  // Sesi aç
+        console.log("MP3 playback active (sound ON)");
         startTimingSync();
       }
       countdownEl.textContent = "Doğru sırayla çal: Mi Mi Sol Mi Re Do Mi";
