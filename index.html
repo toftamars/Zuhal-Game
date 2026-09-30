@@ -3240,8 +3240,8 @@ function startTimingSync() {
       var noteNum = melodyGameState.targetSequence[nextNoteIndex];
       var noteName = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"][noteNum - 1] || "Note" + noteNum;
 
-      // Nota zamanına 0.3 saniye kala highlight yap
-      if (Math.abs(elapsedTime - nextNoteTime) < 0.3) {
+      // Nota zamanına ±0.15 saniye içinde highlight yap (kesin zamanda)
+      if (Math.abs(elapsedTime - nextNoteTime) < 0.15) {
         if (!melodyGameState.lastHighlightTime || (elapsedTime - melodyGameState.lastHighlightTime) > 0.5) {
           console.log("HIGHLIGHT " + (nextNoteIndex + 1) + ": " + noteName + " at " + elapsedTime.toFixed(2) + "s (target: " + nextNoteTime.toFixed(2) + "s)");
           melodyGameState.lastHighlightTime = elapsedTime;
