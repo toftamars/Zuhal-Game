@@ -3117,6 +3117,11 @@ function highlightNextMelodyPad() {
 
 function handleMelodyInput(noteNum) {
   if (!melodyGameState.active) return;
+
+  var currentTime = melodyGameState.audioElement?.currentTime || 0;
+  var noteName = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"][noteNum - 1] || "Note" + noteNum;
+  console.log("🎵 " + noteName + " pressed at", currentTime.toFixed(2), "sec");
+
   playMelodyNote(noteNum, 0.15);
 
   var expected = melodyGameState.targetSequence[melodyGameState.notesPlayed.length];
@@ -3220,16 +3225,22 @@ function startTimingSync() {
       return;
     }
 
-    var elapsedTime = (Date.now() / 1000) - melodyGameState.audioStartTime;
+    var elapsedTime = melodyGameState.audioElement?.currentTime || 0;
 
     // Her notanın zamanında highlight'ı güncelle
     var nextNoteIndex = melodyGameState.notesPlayed.length;
     if (nextNoteIndex < melodyGameState.noteTiming.length) {
       var nextNoteTime = melodyGameState.noteTiming[nextNoteIndex];
+      var noteNum = melodyGameState.targetSequence[nextNoteIndex];
+      var noteName = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"][noteNum - 1] || "Note" + noteNum;
 
-      // Nota zamanına 0.2 saniye kala highlight yap
+      // Nota zamanına 0.3 saniye kala highlight yap
       if (Math.abs(elapsedTime - nextNoteTime) < 0.3) {
-        highlightNextMelodyPad();
+        if (!melodyGameState.lastHighlightTime || (elapsedTime - melodyGameState.lastHighlightTime) > 0.5) {
+          console.log("⚡ Highlighting", noteName, "- target time:", nextNoteTime.toFixed(2), "- current:", elapsedTime.toFixed(2));
+          melodyGameState.lastHighlightTime = elapsedTime;
+          highlightNextMelodyPad();
+        }
       }
     }
   }, 50);
