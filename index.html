@@ -3259,9 +3259,11 @@ function finishMelodyGame() {
   var vid = document.getElementById("melodyGameVideo");
   if (vid) vid.pause();
 
-  // Müzik durdur
-  var audio = document.getElementById("melodyGameAudio");
-  if (audio) audio.pause();
+  // Müzik durdur (melodyGameState'den)
+  if (melodyGameState.audioElement) {
+    melodyGameState.audioElement.pause();
+    melodyGameState.audioElement.currentTime = 0;
+  }
 
   var total = melodyGameState.targetSequence.length;
   var accuracy = total > 0 ? Math.round((melodyGameState.correctNotes / total) * 100) : 0;
