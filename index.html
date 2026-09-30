@@ -3230,6 +3230,9 @@ function startTimingSync() {
 
     var elapsedTime = melodyGameState.audioElement?.currentTime || 0;
 
+    // Ekrana saniye göster (zaman kontrol için)
+    document.getElementById("gameStatusTxtMelody").textContent = elapsedTime.toFixed(2) + "s";
+
     // Her notanın zamanında highlight'ı güncelle
     var nextNoteIndex = melodyGameState.notesPlayed.length;
     if (nextNoteIndex < melodyGameState.noteTiming.length) {
