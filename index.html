@@ -3170,9 +3170,10 @@ function startMelodyGame() {
     promoVid.currentTime = 0;
   }
 
-  // Oyun videosu başlat
+  // Oyun videosu başlat (SESİ KAPAT)
   var vid = document.getElementById("melodyGameVideo");
   if (vid) {
+    vid.muted = true;  // JavaScript'te de muted yap
     vid.currentTime = 0;
     vid.play().catch(function(e) { console.log("Video play error:", e); });
   }
@@ -3214,6 +3215,8 @@ function startMelodyAudio() {
   melodyGameState.audioStartTime = Date.now() / 1000;
   melodyGameState.audioElement.play().catch(function(e) { console.log("Audio play error:", e); });
 
+  console.log("MP3 playback started - monitor currentTime in sync loop");
+
   // Timing sync loop
   startTimingSync();
 }
@@ -3237,7 +3240,7 @@ function startTimingSync() {
       // Nota zamanına 0.3 saniye kala highlight yap
       if (Math.abs(elapsedTime - nextNoteTime) < 0.3) {
         if (!melodyGameState.lastHighlightTime || (elapsedTime - melodyGameState.lastHighlightTime) > 0.5) {
-          console.log("⚡ Highlighting", noteName, "- target time:", nextNoteTime.toFixed(2), "- current:", elapsedTime.toFixed(2));
+          console.log("HIGHLIGHT " + (nextNoteIndex + 1) + ": " + noteName + " at " + elapsedTime.toFixed(2) + "s (target: " + nextNoteTime.toFixed(2) + "s)");
           melodyGameState.lastHighlightTime = elapsedTime;
           highlightNextMelodyPad();
         }
