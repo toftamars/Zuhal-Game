@@ -3287,6 +3287,13 @@ function finishMelodyGame() {
 }
 
 document.getElementById("btnPromoEnterMelody")?.addEventListener("click", function() {
+  // Promo videosu durdur (müzik çakışmasını önle)
+  var promoVid = document.getElementById("promoVidMelody");
+  if (promoVid) {
+    promoVid.pause();
+    promoVid.currentTime = 0;
+  }
+
   document.getElementById("playerNameInputMelody").value = "";
   wShowPanel("gameStartMelody");
 });
