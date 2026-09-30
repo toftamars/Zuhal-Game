@@ -3189,37 +3189,31 @@ function startCountdown() {
   var countdownEl = document.getElementById("gameStatusTxtMelody");
   var count = 3;  // 3-2-1 countdown (toplam 3 saniye)
 
+  // Countdown başında audio'yu yükle ve hazırla
+  if (!melodyGameState.audioElement) {
+    melodyGameState.audioElement = new Audio("games/melody-challenge/seven-nation-army.mp3");
+    melodyGameState.audioElement.loop = false;
+  }
+  melodyGameState.audioElement.currentTime = 0;
+
   var countdownInterval = setInterval(function() {
     countdownEl.textContent = count;
     count--;
 
     if (count < 0) {
       clearInterval(countdownInterval);
-      // Countdown bitti, müzik başlasın
+      // Countdown bitti, müzik başlasın (önceden yüklü)
       melodyGameState.active = true;
-      startMelodyAudio();
+      melodyGameState.audioStartTime = Date.now() / 1000;
+      melodyGameState.audioElement.play().catch(function(e) { console.log("Audio play error:", e); });
+      console.log("MP3 playback started - syncTime begins");
+      startTimingSync();
       countdownEl.textContent = "Doğru sırayla çal: Mi Mi Sol Mi Re Do Mi";
       highlightNextMelodyPad();
     }
   }, 1000);
 }
 
-function startMelodyAudio() {
-  // MP3 loading ve playback
-  if (!melodyGameState.audioElement) {
-    melodyGameState.audioElement = new Audio("games/melody-challenge/seven-nation-army.mp3");
-    melodyGameState.audioElement.loop = false;
-  }
-
-  melodyGameState.audioElement.currentTime = 0;
-  melodyGameState.audioStartTime = Date.now() / 1000;
-  melodyGameState.audioElement.play().catch(function(e) { console.log("Audio play error:", e); });
-
-  console.log("MP3 playback started - monitor currentTime in sync loop");
-
-  // Timing sync loop
-  startTimingSync();
-}
 
 function startTimingSync() {
   var syncInterval = setInterval(function() {
