@@ -3158,6 +3158,13 @@ function startMelodyGame() {
 
   wShowPanel("gamePlayingMelody");
 
+  // ÖNEMLI: Promo sayfasındaki videoyu durdur (çakışmayı önle)
+  var promoVid = document.getElementById("promoVidMelody");
+  if (promoVid) {
+    promoVid.pause();
+    promoVid.currentTime = 0;
+  }
+
   // Oyun videosu başlat
   var vid = document.getElementById("melodyGameVideo");
   if (vid) {
