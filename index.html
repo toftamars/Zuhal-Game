@@ -3193,7 +3193,7 @@ function startCountdown() {
   // HTML audio element'i hazırla
   var audioEl = document.getElementById("melodyGameAudio");
   if (audioEl) {
-    audioEl.currentTime = 0;
+    audioEl.currentTime = 3.13;  // Intro'yu atla, melodi başlangıcına git
     // Countdown sırasında sesizce play (autoplay politikasını bypass et)
     audioEl.muted = true;
     audioEl.play().catch(function(e) { console.log("Silent preload error:", e); });
@@ -3209,7 +3209,7 @@ function startCountdown() {
       if (audioEl) {
         melodyGameState.active = true;
         melodyGameState.audioElement = audioEl;
-        melodyGameState.audioStartTime = Date.now() / 1000;
+        melodyGameState.audioStartTime = Date.now() / 1000 - 3.13;  // 3.13 saniye offset
         audioEl.muted = false;  // Sesi aç
         console.log("MP3 playback active (sound ON)");
         startTimingSync();
