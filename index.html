@@ -3051,6 +3051,7 @@ var melodyGameState = {
   audioElement: null,
   audioStartTime: 0,
   noteTiming: [3.13, 3.57, 3.83, 4.20, 4.55, 4.90, 5.20],  // Seven Nation Army: intro (3.13s) + melodi zamanları
+  noteDuration: [0.44, 0.26, 0.37, 0.35, 0.35, 0.30, 0.35],  // Her notanın süresi (saniye)
   countdownValue: 4
 };
 
@@ -3233,17 +3234,17 @@ function startTimingSync() {
     // Ekrana saniye göster (zaman kontrol için)
     document.getElementById("gameStatusTxtMelody").textContent = elapsedTime.toFixed(2) + "s";
 
-    // Her notanın zamanında highlight'ı güncelle
+    // Her notanın zamanında highlight'ı güncelle - nota duration'ı kadar göster
     var nextNoteIndex = melodyGameState.notesPlayed.length;
     if (nextNoteIndex < melodyGameState.noteTiming.length) {
       var nextNoteTime = melodyGameState.noteTiming[nextNoteIndex];
+      var noteDuration = melodyGameState.noteDuration[nextNoteIndex];
       var noteNum = melodyGameState.targetSequence[nextNoteIndex];
       var noteName = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"][noteNum - 1] || "Note" + noteNum;
 
-      // Nota zamanına ±0.15 saniye içinde highlight yap (kesin zamanda)
-      if (Math.abs(elapsedTime - nextNoteTime) < 0.15) {
-        if (!melodyGameState.lastHighlightTime || (elapsedTime - melodyGameState.lastHighlightTime) > 0.5) {
-          console.log("HIGHLIGHT " + (nextNoteIndex + 1) + ": " + noteName + " at " + elapsedTime.toFixed(2) + "s (target: " + nextNoteTime.toFixed(2) + "s)");
+      // Nota başlangıcından nota sonuna kadar (duration boyunca) highlight
+      if (elapsedTime >= nextNoteTime && elapsedTime < (nextNoteTime + noteDuration)) {
+        if (!melodyGameState.lastHighlightTime || (elapsedTime - melodyGameState.lastHighlightTime) > 0.1) {
           melodyGameState.lastHighlightTime = elapsedTime;
           highlightNextMelodyPad();
         }
