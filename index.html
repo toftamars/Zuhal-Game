@@ -3052,7 +3052,8 @@ var melodyGameState = {
   audioStartTime: 0,
   noteTiming: [3.13, 3.57, 3.83, 4.20, 4.55, 4.90, 5.20],  // Seven Nation Army: intro (3.13s) + melodi zamanları
   noteDuration: [0.44, 0.26, 0.37, 0.35, 0.35, 0.30, 0.35],  // Her notanın süresi (saniye)
-  countdownValue: 4
+  countdownValue: 4,
+  lastHighlightIndex: -1  // Şu anki nota highlight index (otomatik, user basmasına bakmasın)
 };
 
 function playMelodyNote(noteNum, duration) {
@@ -3104,12 +3105,13 @@ function highlightNextMelodyPad() {
     p.classList.remove("next-hint");
   });
 
-  // Sonraki notayı vurgula
-  if (melodyGameState.active) {
-    var nextNoteNum = melodyGameState.targetSequence[melodyGameState.notesPlayed.length];
+  // Şu anki notayı vurgula (lastHighlightIndex'e göre - otomatik, user basmasına bakmasın)
+  if (melodyGameState.active && melodyGameState.lastHighlightIndex >= 0) {
+    var noteIndex = melodyGameState.lastHighlightIndex;
+    var noteNum = melodyGameState.targetSequence[noteIndex];
     var pads = document.querySelectorAll(".melody-pad");
     for (var i = 0; i < pads.length; i++) {
-      if (parseInt(pads[i].getAttribute("data-note")) === nextNoteNum) {
+      if (parseInt(pads[i].getAttribute("data-note")) === noteNum) {
         pads[i].classList.add("next-hint");
         break;
       }
@@ -3234,21 +3236,30 @@ function startTimingSync() {
     // Ekrana saniye göster (zaman kontrol için)
     document.getElementById("gameStatusTxtMelody").textContent = elapsedTime.toFixed(2) + "s";
 
-    // Her notanın zamanında highlight'ı güncelle - nota duration'ı kadar göster
-    var nextNoteIndex = melodyGameState.notesPlayed.length;
-    if (nextNoteIndex < melodyGameState.noteTiming.length) {
-      var nextNoteTime = melodyGameState.noteTiming[nextNoteIndex];
-      var noteDuration = melodyGameState.noteDuration[nextNoteIndex];
-      var noteNum = melodyGameState.targetSequence[nextNoteIndex];
-      var noteName = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"][noteNum - 1] || "Note" + noteNum;
-
-      // Nota başlangıcından nota sonuna kadar (duration boyunca) highlight
-      if (elapsedTime >= nextNoteTime && elapsedTime < (nextNoteTime + noteDuration)) {
-        if (!melodyGameState.lastHighlightTime || (elapsedTime - melodyGameState.lastHighlightTime) > 0.1) {
-          melodyGameState.lastHighlightTime = elapsedTime;
-          highlightNextMelodyPad();
-        }
+    // Şu anki nota'yı audio zamanına göre otomatik belirle
+    var nextNoteIndex = -1;
+    for (var i = 0; i < melodyGameState.noteTiming.length; i++) {
+      var noteStart = melodyGameState.noteTiming[i];
+      var noteEnd = noteStart + melodyGameState.noteDuration[i];
+      if (elapsedTime >= noteStart && elapsedTime < noteEnd) {
+        nextNoteIndex = i;
+        break;
       }
+    }
+
+    // Hangi nota çalıyorsa o nota yeşil yanmalı (user basmasına bakmasın)
+    if (nextNoteIndex >= 0) {
+      // Highlight'ı açık tutmanın bir yolu: lastHighlightIndex trackle
+      if (!melodyGameState.lastHighlightIndex || melodyGameState.lastHighlightIndex !== nextNoteIndex) {
+        melodyGameState.lastHighlightIndex = nextNoteIndex;
+        highlightNextMelodyPad();
+      }
+    } else {
+      // Hiçbir nota çalmıyor, highlight'ı kaldır
+      document.querySelectorAll(".melody-pad.next-hint").forEach(function(p) {
+        p.classList.remove("next-hint");
+      });
+      melodyGameState.lastHighlightIndex = -1;
     }
   }, 50);
 }
