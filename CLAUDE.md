@@ -260,10 +260,14 @@ kaldırıldı — iOS eşzamanlı AudioContext sayısını sınırlar. Gerekirse
 
 **Ödüller:** `whitneyPrizes` objesi, `makeCode()` → `HT50-{KOD}-{DDMM}-{4rakam}` formatında kod üretir
 
-**Ödül merdiveni (AKADEMİ KAMPANYASI):** MÜKEMMEL → Akademi 1 Ay 4 Ders (`AKD1AY`),
-HARİKA → Ücretsiz Deneme Dersi (`AKDRS`), İYİ → Akademide İlk Ay %50 (`AKD50`),
-İDARE EDER → Zuhal Bez Çanta (`CANTA`), ÇALIŞMAYA DEVAM → **HEDİYE YOK**
-(`type:"none"`, kupon üretilmez).
+**Ödül merdiveni (rhythm, 2026-11-19 güncellemesi — Akademi kampanyası kaldırıldı):**
+MÜKEMMEL → %15 İndirim (`IND15`), HARİKA → %10 İndirim (`IND10`),
+İYİ → %5 İndirim (`IND5`), İDARE EDER → Zuhal Bez Çanta (`CANTA`, günlük stok;
+bitince %5 indirime düşer), ÇALIŞMAYA DEVAM → **HEDİYE YOK** (`type:"none"`, kupon
+üretilmez). Yüzde indirimlerinin stok sınırı yok. Akademi ödülleri (`AKD1AY`,
+`AKDRS`, `AKD50`) yalnızca melodi oyununda ve eski kuponlarda kaldı.
+⚠ Bu bölümün altındaki Akademi stok sayaçları (`MAX_AKD1AY_*`) artık kodda yok;
+ilgili metinler eskidir.
 
 Kampanyanın amacı indirim dağıtmak değil **Akademi'ye öğrenci çekmek**: MÜKEMMEL hariç
 her basamak müşteriyi derse yönlendiriyor. Bu yüzden `%50` burada mağaza indirimi değil,
