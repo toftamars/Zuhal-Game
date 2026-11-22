@@ -262,8 +262,8 @@ kaldırıldı — iOS eşzamanlı AudioContext sayısını sınırlar. Gerekirse
 
 **Ödül merdiveni (rhythm, 2026-11-19 güncellemesi — Akademi kampanyası kaldırıldı):**
 MÜKEMMEL → %15 İndirim (`IND15`), HARİKA → %10 İndirim (`IND10`),
-İYİ → %5 İndirim (`IND5`), İDARE EDER → Zuhal Bez Çanta (`CANTA`, günlük stok;
-bitince %5 indirime düşer), ÇALIŞMAYA DEVAM → **HEDİYE YOK** (`type:"none"`, kupon
+İYİ → %5 İndirim (`IND5`). Bez çanta (`CANTA`) ödül merdiveninden kaldırıldı (2026-11-22);
+ÇALIŞMAYA DEVAM → **HEDİYE YOK** (`type:"none"`, kupon
 üretilmez). Yüzde indirimlerinin stok sınırı yok. Akademi ödülleri (`AKD1AY`,
 `AKDRS`, `AKD50`) yalnızca melodi oyununda ve eski kuponlarda kaldı.
 ⚠ Bu bölümün altındaki Akademi stok sayaçları (`MAX_AKD1AY_*`) artık kodda yok;
