@@ -2829,10 +2829,10 @@ function isBusyNow() {
   // kodu karşılaştırmak 60 sn'yi rahat geçer; açıkken asla yenileme, yoksa
   // panel kapanır ve personel tekrar PIN girmek zorunda kalır.
   if (open("statsModal") || open("pinModal")) return true;
-  // Oyun ekranı açıkken sadece müşteri gerçekten çekildiyse yenile
-  if (open("gameOverlay")) {
-    return (Date.now() - lastActivityAt) < IDLE_BEFORE_MS;
-  }
+  // Oyun ekranı (tanıtım/isim/oyun/sonuç) açıkken ASLA yenileme: yenilenince
+  // kiosk ana menüye (oyun seçimine) döner ve müşteri oyundan atılmış olur.
+  // Oyundan çıkış yalnızca "← OYUNLAR" butonuyla yapılır.
+  if (open("gameOverlay")) return true;
   return false;
 }
 
