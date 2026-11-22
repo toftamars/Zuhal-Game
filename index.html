@@ -2829,11 +2829,50 @@ function isBusyNow() {
   // kodu karşılaştırmak 60 sn'yi rahat geçer; açıkken asla yenileme, yoksa
   // panel kapanır ve personel tekrar PIN girmek zorunda kalır.
   if (open("statsModal") || open("pinModal")) return true;
-  // Oyun ekranı (tanıtım/isim/oyun/sonuç) açıkken ASLA yenileme: yenilenince
-  // kiosk ana menüye (oyun seçimine) döner ve müşteri oyundan atılmış olur.
-  // Oyundan çıkış yalnızca "← OYUNLAR" butonuyla yapılır.
-  if (open("gameOverlay")) return true;
   return false;
+}
+
+// Oyun ekranı (gameOverlay) açıkken sayfa YENİLENMEZ: yenileme kiosku ana menüye
+// (oyun seçimine) atar. Bunun yerine terk edilmiş oyun ekranı, o oyunun KENDİ
+// tanıtım sayfasına döndürülür.
+function isGameScreenOpen() {
+  var el = document.getElementById("gameOverlay");
+  return !!el && el.style.display !== "none";
+}
+
+function isMelodyScreenShowing() {
+  return ["gamePromoMelody","gameStartMelody","gamePlayingMelody","gameWinMelody"].some(function(id) {
+    var el = document.getElementById(id);
+    return el && el.style.display !== "none";
+  });
+}
+
+function resetGameToPromo() {
+  if (isMelodyScreenShowing()) {
+    if (melodyGameState.audioElement) {
+      melodyGameState.audioElement.pause();
+      melodyGameState.audioElement.currentTime = 0;
+    }
+    melodyGameState.active = false;
+    wShowPanel("gamePromoMelody");
+    return;
+  }
+  stopWAudio();
+  clearTimeout(missTimerW);
+  clearInterval(progressTimerW);
+  gameRunning = false;
+  wShowPanel("gamePromo");
+  var v = document.getElementById("promoVidRhythm");
+  if (v) v.play().catch(function(){});
+  startBannerAudio();
+}
+
+function isOnPromoPanel() {
+  var p = ["gamePromo","gamePromoMelody"];
+  return p.some(function(id) {
+    var el = document.getElementById(id);
+    return el && el.style.display !== "none";
+  });
 }
 
 function scheduleIdleReload() {
@@ -2843,6 +2882,15 @@ function scheduleIdleReload() {
   var dueAt = Date.now() + RELOAD_AFTER_MS;
   setInterval(function() {
     autoClosePanels(); // yenileme vakti gelmemiş olsa da paneli kontrol et
+    if (isGameScreenOpen()) {
+      // Oyun ekranı: yenileme yok. Müşteri oyundan çıktıysa (sessizlik) oyunun
+      // kendi tanıtım sayfasına dön. Tur sürüyorsa (gameRunning) dokunma.
+      if (gameRunning) return;
+      if (Date.now() - lastActivityAt < IDLE_BEFORE_MS) return;
+      if (isOnPromoPanel()) return;
+      resetGameToPromo();
+      return;
+    }
     if (Date.now() < dueAt) return;
     if (isBusyNow()) return; // meşgul — bu turu atla, bir sonrakinde tekrar bak
     location.reload();
